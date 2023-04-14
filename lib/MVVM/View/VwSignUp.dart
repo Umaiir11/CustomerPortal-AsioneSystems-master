@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/ApiModels/ModCities.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../ApiModels/ModCountry.dart';
 import '../../UserWidgets/UWCitiesDropDown.dart';
@@ -86,6 +87,8 @@ class _VwSignUpState extends State<VwSignUp> {
                         minimumSize: Size(double.infinity, 50), // <-- Minimum size
                       ),
                       onPressed: () async {
+                        // Output: '1e6e505c-6629-4a1a-88ed-0d84c7e246a8'
+
                         if (_formKey.currentState!.validate()) {
                           if (l_VmSignUp.Pr_selectedcountry_Text.isNotEmpty && l_VmSignUp.Pr_selectedcity_Text.isNotEmpty) {
                             // Clear the model data

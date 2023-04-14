@@ -10,6 +10,7 @@ import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:login/ServiceLayer/Sl_CountriesList.dart';
 import 'package:login/ServiceLayer/Sl_WebToken.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../ApiModels/ModCities.dart';
 import '../../ApiModels/ModErrorLog.dart';
@@ -274,12 +275,13 @@ class VmSignUp extends GetxController {
 
   FncFillModelData() {
 
-
+    String uuid = Uuid().v4();
+    print(uuid);
     DateTime expiredTime = DateTime.parse("1900-01-01T00:00:00");
     DateTime pkexpiredTime = DateTime.parse("2023-04-13T15:03:39.7042384+05:00");
 
     ModUser lModUser = ModUser();
-    lModUser.Pr_PKGUID = "00000000-0000-0000-0000-000000000000";
+    lModUser.Pr_PKGUID = uuid;
     lModUser.Pr_EmailID=  Pr_txtemail_Text;
     lModUser.Pr_FullName=  Pr_txtFullname_Text;
     lModUser.Pr_CountryDID=  Pr_selectedautoid_Text;
