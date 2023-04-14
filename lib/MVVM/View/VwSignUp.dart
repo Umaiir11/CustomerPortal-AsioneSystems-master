@@ -27,7 +27,6 @@ class _VwSignUpState extends State<VwSignUp> {
   void initState() {
     // TODO: implement initState
     l_VmSignUp.Fnc_CountryListdata();
-    l_VmSignUp.Fnc_UserCreate();
     super.initState();
   }
 
@@ -88,13 +87,86 @@ class _VwSignUpState extends State<VwSignUp> {
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          // Do your form submission here
+                          if (l_VmSignUp.Pr_selectedcountry_Text.isNotEmpty && l_VmSignUp.Pr_selectedcity_Text.isNotEmpty) {
+                            // Clear the model data
+                            l_VmSignUp.lModuserlist.clear();
+                            // Fill the model data with the new form data
+                            l_VmSignUp.FncFillModelData();
+                            if (l_VmSignUp.lModuserlist.isNotEmpty) {
+                              l_VmSignUp.Fnc_UserCreate();
+                              Get.snackbar(
+                                'Alert',
+                                '',
+                                messageText: Text(
+                                  'User Created',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                snackStyle: SnackStyle.FLOATING,
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.black87,
+                                colorText: Colors.white,
+                                margin: EdgeInsets.all(10),
+                                borderRadius: 10,
+                                animationDuration: Duration(milliseconds: 800),
+                                overlayBlur: 0,
+                                isDismissible: true,
+                                mainButton: TextButton(
+                                  onPressed: () {
+                                    // Do something when main button is pressed
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white,
+                                ),
+                              );
+                            } else {
+                              print('List Empty');
+                            }
+                          } else {
+                            // Show a snackbar message asking the user to fill these fields
+                            Get.snackbar(
+                              'Alert',
+                              '',
+                              messageText: Text(
+                                'Please select both a country and a city',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              snackStyle: SnackStyle.FLOATING,
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              margin: EdgeInsets.all(10),
+                              borderRadius: 10,
+                              animationDuration: Duration(milliseconds: 800),
+                              overlayBlur: 0,
+                              isDismissible: true,
+                              mainButton: TextButton(
+                                onPressed: () {
+                                  // Do something when main button is pressed
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              icon: Icon(
+                                Icons.info_outline,
+                                color: Colors.white,
+                              ),
+                            );
+                          }
                         } else {
                           l_VmSignUp.l_autoValidate.value = true;
                         }
-
-                        // Get.to(() => VwCompany());
                       },
+
+
+
                       child: Text(
                         "SignUp",
                         style: GoogleFonts.ubuntu(
@@ -189,7 +261,7 @@ class _VwSignUpState extends State<VwSignUp> {
                                   ),
                                 );
                               } else {
-                                Get.snackbar("ALert", "Filed Image Compresseion");
+                                Get.snackbar("ALert", "Upload image");
                               }
                             },
                             child: Obx(() => l_VmSignUp.G_compressedImage.value != null
@@ -241,6 +313,9 @@ class _VwSignUpState extends State<VwSignUp> {
                               ),
                             ),
                             validator: l_VmSignUp.Pr_validateFullName,
+                              onChanged: (value) {
+                                l_VmSignUp.Pr_txtemail_Text = value;
+                              }
                           );
                         }),
                       ),
@@ -271,6 +346,9 @@ class _VwSignUpState extends State<VwSignUp> {
                                 suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
                               ),
                               validator: l_VmSignUp.Pr_validateEmail,
+                                onChanged: (value) {
+                                  l_VmSignUp.Pr_txtemail_Text = value;
+                                }
                             );
                           })),
                     ),
@@ -301,6 +379,9 @@ class _VwSignUpState extends State<VwSignUp> {
                                 prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
                               ),
                               validator: l_VmSignUp.Pr_validatepasword,
+                                onChanged: (value) {
+                                  l_VmSignUp.Pr_txtpassword_Text = value;
+                                }
                             );
                           })),
                     ),
@@ -332,6 +413,10 @@ class _VwSignUpState extends State<VwSignUp> {
                                 suffixIcon: togglepassword(),
                               ),
                               validator: l_VmSignUp.Pr_validateconfirmpass,
+
+                                onChanged: (value) {
+                                  l_VmSignUp.Pr_txtconfirmpassword_Text = value;
+                                }
                             );
                           })),
                     ),
@@ -359,8 +444,8 @@ class _VwSignUpState extends State<VwSignUp> {
                               l_VmSignUp.l_PrCitiesList?.clear();
                               // Call a method to fetch the city data
                               if (await l_VmSignUp.Fnc_CitiesListdata()) {
-                                l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
-                                print("selected city is: ${l_VmSignUp.Pr_selectedcity_Text}");
+                               // l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
+                                //print("selected city is: ${l_VmSignUp.Pr_selectedcity_Text}");
                               }
                               print("selected country: ${l_VmSignUp.Pr_selectedcountry_Text}");
                               print("selected country Code: ${l_VmSignUp.Pr_contactcode_Text}");
@@ -450,6 +535,9 @@ class _VwSignUpState extends State<VwSignUp> {
                                     ),
                                   ),
                                   validator: l_VmSignUp.Pr_validateconcotactnumber,
+                                    onChanged: (value) {
+                                      l_VmSignUp.Pr_txtcontactnumber_Text = value;
+                                    }
                                 )),
                           ],
                         ),

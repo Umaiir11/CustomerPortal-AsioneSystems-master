@@ -26,34 +26,6 @@ class ModUser {
   DateTime Pr_DDate = DateTime.parse("1900-01-01T00:00:00");
   int Pr_Operation = 0;
 
-  ModUser({
-    required this.Pr_PKGUID,
-    required this.Pr_EmailID,
-    required this.Pr_FullName,
-    required this.Pr_CountryDID,
-    required this.Pr_CityDID,
-    required this.Pr_Password,
-    required this.Pr_IsActivated,
-    required this.Pr_ContactNo,
-    required this.Pr_Token,
-    required this.Pr_ExpiredTime,
-    required this.Pr_Image,
-    required this.Pr_ImageExt,
-    required this.Pr_PackageDID,
-    required this.Pr_NoOfLicences,
-    required this.Pr_PerLicenceCost,
-    required this.Pr_PurchasedProductDID,
-    required this.Pr_PaidAmmount,
-    required this.Pr_PackageExpiryDate,
-    required this.Pr_PackagePurchaseDate,
-    required this.Pr_CB,
-    required this.Pr_CDate,
-    required this.Pr_MB,
-    required this.Pr_MDate,
-    required this.Pr_DB,
-    required this.Pr_DDate,
-    required this.Pr_Operation,
-  });
 
   Map<String, dynamic> toJson() {
     return {

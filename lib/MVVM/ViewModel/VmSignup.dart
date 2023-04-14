@@ -15,6 +15,7 @@ import '../../ApiModels/ModCities.dart';
 import '../../ApiModels/ModErrorLog.dart';
 import '../../ApiModels/ModUser.dart';
 import '../../ApiModels/ModUser.dart';
+import '../../ClassModules/cmCryptography.dart';
 import '../../ServiceLayer/Sl_CitiesList.dart';
 import '../../ServiceLayer/Sl_UserCreate.dart';
 
@@ -268,45 +269,48 @@ class VmSignUp extends GetxController {
     }
   }
 
+  List<ModUser> lModuserlist = [];
 
 
+  FncFillModelData() {
 
 
-FncFillModelData(){
-  DateTime expiredTime = DateTime.parse("1900-01-01T00:00:00");
-  DateTime pkexpiredTime = DateTime.parse("2023-04-13T15:03:39.7042384+05:00");
-  List<ModUser> lModuser = [
-    ModUser(
-      Pr_PKGUID: "7a6793d9-95aa-4682-867e-1fa763d02621",
-      Pr_EmailID: Pr_txtemail_Text,
-      Pr_FullName: Pr_txtFullname_Text,
-      Pr_CountryDID: Pr_selectedautoid_Text,
-      Pr_CityDID: cmGlobalVariables.Pb_SelectedCity!,
-      Pr_Password: "",
-      Pr_IsActivated: false,
-      Pr_ContactNo: Pr_txtcontactnumber_Text,
-      Pr_Token: cmGlobalVariables.Pb_Token!,
-      Pr_ExpiredTime: expiredTime,
-      Pr_Image: "",
-      Pr_ImageExt: "",
-      Pr_PackageDID: 0,
-      Pr_NoOfLicences: 0,
-      Pr_PerLicenceCost: 0.0,
-      Pr_PurchasedProductDID: 0,
-      Pr_PaidAmmount: 0.0,
-      Pr_PackageExpiryDate: expiredTime,
-      Pr_PackagePurchaseDate: expiredTime,
-      Pr_CB: "00000000-0000-0000-0000-000000000000",
-      Pr_CDate: pkexpiredTime,
-      Pr_MB: "00000000-0000-0000-0000-000000000000",
-      Pr_MDate: expiredTime,
-      Pr_DB: "00000000-0000-0000-0000-000000000000",
-      Pr_DDate: expiredTime,
-      Pr_Operation: 0,
-    ),
-    // Add more ModUser models to the list as needed
-  ];
-}
+    DateTime expiredTime = DateTime.parse("1900-01-01T00:00:00");
+    DateTime pkexpiredTime = DateTime.parse("2023-04-13T15:03:39.7042384+05:00");
+
+    ModUser lModUser = ModUser();
+    lModUser.Pr_PKGUID = "00000000-0000-0000-0000-000000000000";
+    lModUser.Pr_EmailID=  Pr_txtemail_Text;
+    lModUser.Pr_FullName=  Pr_txtFullname_Text;
+    lModUser.Pr_CountryDID=  Pr_selectedautoid_Text;
+    lModUser.Pr_CityDID= cmGlobalVariables.Pb_SelectedCity!;
+    lModUser.Pr_Password= cmCryptography().Fnc_Encrypt_AES(Pr_txtpassword_Text);
+    lModUser.Pr_IsActivated= false;
+    lModUser.Pr_ContactNo=  Pr_txtcontactnumber_Text;
+    lModUser.Pr_Token= cmGlobalVariables.Pb_Token!;
+    lModUser.Pr_ExpiredTime= expiredTime;
+    lModUser.Pr_Image= "";
+    lModUser.Pr_ImageExt= "";
+    lModUser.Pr_PackageDID= 0;
+    lModUser.Pr_NoOfLicences= 0;
+    lModUser.Pr_PerLicenceCost= 0.0;
+    lModUser.Pr_PurchasedProductDID= 0;
+    lModUser.Pr_PaidAmmount= 0.0;
+    lModUser.Pr_PackageExpiryDate= expiredTime;
+    lModUser.Pr_PackagePurchaseDate= expiredTime;
+    lModUser.Pr_CB= "00000000-0000-0000-0000-000000000000";
+    lModUser.Pr_CDate= pkexpiredTime;
+    lModUser.Pr_MB= "00000000-0000-0000-0000-000000000000";
+    lModUser.Pr_MDate= expiredTime;
+    lModUser.Pr_DB= "00000000-0000-0000-0000-000000000000";
+    lModUser.Pr_DDate= expiredTime;
+    lModUser.Pr_Operation= 0;
+
+      // Add more ModUser models to the list as needed
+    lModuserlist.add(lModUser);
+  }
+
+
   Future<bool> Fnc_UserCreate() async {
     bool result;
     result= await Sl_UserCreate().Fnc_UserCreate();
