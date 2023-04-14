@@ -30,6 +30,13 @@ class _VwSignUpState extends State<VwSignUp> {
     l_VmSignUp.Fnc_CountryListdata();
     super.initState();
   }
+  @override
+  Future<bool> onWillPop() async {
+    Get.back();
+    return true;
+  }
+
+
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -317,7 +324,7 @@ class _VwSignUpState extends State<VwSignUp> {
                             ),
                             validator: l_VmSignUp.Pr_validateFullName,
                               onChanged: (value) {
-                                l_VmSignUp.Pr_txtemail_Text = value;
+                                l_VmSignUp.Pr_txtFullname_Text = value;
                               }
                           );
                         }),

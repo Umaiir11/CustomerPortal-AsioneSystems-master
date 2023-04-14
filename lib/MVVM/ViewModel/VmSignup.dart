@@ -24,7 +24,6 @@ class VmSignUp extends GetxController {
 
 
 
-
   RxBool l_autoValidate = false.obs;
 
 
