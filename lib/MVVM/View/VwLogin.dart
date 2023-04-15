@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/MVVM/View/VwSignUp.dart';
 import 'package:login/MVVM/ViewModel/VmLogin.dart';
 
+import 'VwForgetPassword.dart';
+
 class VwLogin extends StatefulWidget {
   @override
   State<VwLogin> createState() => _VwLoginState();
@@ -181,7 +183,7 @@ class _VwLoginState extends State<VwLogin> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => VwSignUp());
+                                  Get.to(() => VwForgetPasswrod());
                                 },
                                 child: Text(
                                   "Forget Password",

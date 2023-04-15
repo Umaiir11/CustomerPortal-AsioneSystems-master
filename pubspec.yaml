@@ -94,6 +94,7 @@ flutter:
   assets:
     - assets/google.png
     - assets/image.png
+    - assets/pass.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
