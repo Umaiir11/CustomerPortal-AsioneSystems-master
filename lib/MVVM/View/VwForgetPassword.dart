@@ -104,11 +104,12 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                               controller: EmailController,
                               decoration: InputDecoration(
                                 fillColor: Colors.grey[50],
+                                labelText: ' Email',
                                 hintText: 'Enter Your Email',
                                 hintStyle: const TextStyle(color: Colors.black38),
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide(
                                     color: l_Vmpassword.Pr_autoValidate.value &&
                                         l_Vmpassword.Pr_validateEmail(EmailController.text) != null
@@ -133,14 +134,15 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                           child: Obx(() {
                             return ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                animationDuration: const Duration(seconds: 1),
+                                animationDuration: const Duration(seconds: 2),
                                 shape: l_Vmpassword.Pr_isLoading_wid.value
                                     ? RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 )
                                     : RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
+                                  backgroundColor: Colors.cyan,
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {

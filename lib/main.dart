@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
               fillColor: Colors.grey[200],
               // set the background color of the TextField
             ),
-            primarySwatch: Colors.lightBlue),
+            primarySwatch: Colors.cyan),
         home: VwLogin());
   }
 }

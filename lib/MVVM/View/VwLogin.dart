@@ -37,7 +37,7 @@ class _VwLoginState extends State<VwLogin> {
           },
           icon: l_VmLogin.Pr_boolSecurePassword_wid.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
           color: l_VmLogin.Pr_boolSecurePassword_wid.value
-              ? Colors.indigo
+              ? Colors.cyan
               : Colors.grey, // set the color based on the toggle state
         );
       });
@@ -94,11 +94,12 @@ class _VwLoginState extends State<VwLogin> {
                               controller: EmailController,
                               decoration: InputDecoration(
                                 fillColor: Colors.grey[50],
+                                labelText: ' Email',
                                 hintText: 'Email',
                                 hintStyle: const TextStyle(color: Colors.black38),
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(5),
                                   borderSide: BorderSide(
                                     color: l_VmLogin.Pr_autoValidate.value &&
                                         l_VmLogin.Pr_validateEmail(EmailController.text) != null
@@ -126,11 +127,12 @@ class _VwLoginState extends State<VwLogin> {
                                 controller: passswordController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.grey[50],
-                                  hintText: 'Password',
+                                  labelText: ' Password',
+                                  hintText: 'Enter Password',
                                   hintStyle: const TextStyle(color: Colors.black38),
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(5),
                                     borderSide: BorderSide(
                                       color: l_VmLogin.Pr_autoValidate.value &&
                                           l_VmLogin.Pr_validatepasword(passswordController.text) != null
@@ -212,7 +214,7 @@ class _VwLoginState extends State<VwLogin> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12), // <-- Radius
                                 ),
-                                backgroundColor: Colors.lightBlueAccent),
+                                backgroundColor: Colors.cyan),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 // Show a snackbar message asking the user to fill these fields
