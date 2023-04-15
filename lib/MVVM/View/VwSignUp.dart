@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/ApiModels/ModCities.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../ApiModels/ModCountry.dart';
 import '../../UserWidgets/UWCitiesDropDown.dart';
@@ -30,6 +29,7 @@ class _VwSignUpState extends State<VwSignUp> {
     l_VmSignUp.Fnc_CountryListdata();
     super.initState();
   }
+
   @override
   Future<bool> onWillPop() async {
     Get.back();
@@ -37,8 +37,6 @@ class _VwSignUpState extends State<VwSignUp> {
     //
     return true;
   }
-
-
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -176,9 +174,6 @@ class _VwSignUpState extends State<VwSignUp> {
                           l_VmSignUp.l_autoValidate.value = true;
                         }
                       },
-
-
-
                       child: Text(
                         "SignUp",
                         style: GoogleFonts.ubuntu(
@@ -221,18 +216,20 @@ class _VwSignUpState extends State<VwSignUp> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: Pr_height*0.03,),
-                Center(
-                  child: Text(
-                          "Tap to upload image",
-                          style: GoogleFonts.ubuntu(
-                              textStyle: const TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black38,
-                                  //fontWeight: FontWeight.w600,
-                                  letterSpacing: .5)),
-                        ),
-                ),
+                  SizedBox(
+                    height: Pr_height * 0.03,
+                  ),
+                  Center(
+                    child: Text(
+                      "Tap to upload image",
+                      style: GoogleFonts.ubuntu(
+                          textStyle: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.black38,
+                              //fontWeight: FontWeight.w600,
+                              letterSpacing: .5)),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(top: Pr_height * 0.03, left: Pr_width * 0.028),
                     child: Column(
@@ -241,12 +238,12 @@ class _VwSignUpState extends State<VwSignUp> {
                         Center(
                           child: InkWell(
                             onTap: () async {
-                              if (await l_VmSignUp.Fncimage() == true) {
+                              if (await l_VmSignUp.FncUserImage() == true) {
                                 Get.snackbar(
                                   'Image Alert',
                                   '',
                                   messageText: Text(
-                                    'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/ 1024} KB.',
+                                    'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/ 1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   snackStyle: SnackStyle.FLOATING,
@@ -296,7 +293,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           ),
                         ),
                         Center(
-                          child: Obx(() => Text(l_VmSignUp.imageName.value)),
+                          child: Obx(() => Text(l_VmSignUp.Pr_imageName.value)),
                         ),
                       ],
                     ),
@@ -308,27 +305,26 @@ class _VwSignUpState extends State<VwSignUp> {
                         width: Pr_width * .890,
                         child: Obx(() {
                           return TextFormField(
-                            controller: FullNameController,
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey[50],
-                              hintText: 'Full Name',
-                              hintStyle: const TextStyle(color: Colors.black38),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: l_VmSignUp.l_autoValidate.value &&
-                                          l_VmSignUp.Pr_validateFullName(FullNameController.text) != null
-                                      ? Colors.red
-                                      : Colors.white38,
+                              controller: FullNameController,
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey[50],
+                                hintText: 'Full Name',
+                                hintStyle: const TextStyle(color: Colors.black38),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: l_VmSignUp.l_autoValidate.value &&
+                                            l_VmSignUp.Pr_validateFullName(FullNameController.text) != null
+                                        ? Colors.red
+                                        : Colors.white38,
+                                  ),
                                 ),
                               ),
-                            ),
-                            validator: l_VmSignUp.Pr_validateFullName,
+                              validator: l_VmSignUp.Pr_validateFullName,
                               onChanged: (value) {
                                 l_VmSignUp.Pr_txtFullname_Text = value;
-                              }
-                          );
+                              });
                         }),
                       ),
                     ),
@@ -340,28 +336,27 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                              controller: EmailController,
-                              decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
-                                hintText: 'Email',
-                                hintStyle: const TextStyle(color: Colors.black38),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: l_VmSignUp.l_autoValidate.value &&
-                                            l_VmSignUp.Pr_validateEmail(EmailController.text) != null
-                                        ? Colors.red
-                                        : Colors.white38,
+                                controller: EmailController,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.grey[50],
+                                  hintText: 'Email',
+                                  hintStyle: const TextStyle(color: Colors.black38),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: l_VmSignUp.l_autoValidate.value &&
+                                              l_VmSignUp.Pr_validateEmail(EmailController.text) != null
+                                          ? Colors.red
+                                          : Colors.white38,
+                                    ),
                                   ),
+                                  suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
                                 ),
-                                suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
-                              ),
-                              validator: l_VmSignUp.Pr_validateEmail,
+                                validator: l_VmSignUp.Pr_validateEmail,
                                 onChanged: (value) {
                                   l_VmSignUp.Pr_txtemail_Text = value;
-                                }
-                            );
+                                });
                           })),
                     ),
                   ),
@@ -372,29 +367,28 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                              obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
-                              controller: PassswordController,
-                              decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
-                                hintText: 'Password',
-                                hintStyle: const TextStyle(color: Colors.black38),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: l_VmSignUp.l_autoValidate.value &&
-                                            l_VmSignUp.Pr_validatepasword(PassswordController.text) != null
-                                        ? Colors.red
-                                        : Colors.white38,
+                                obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                                controller: PassswordController,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.grey[50],
+                                  hintText: 'Password',
+                                  hintStyle: const TextStyle(color: Colors.black38),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: l_VmSignUp.l_autoValidate.value &&
+                                              l_VmSignUp.Pr_validatepasword(PassswordController.text) != null
+                                          ? Colors.red
+                                          : Colors.white38,
+                                    ),
                                   ),
+                                  prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
                                 ),
-                                prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
-                              ),
-                              validator: l_VmSignUp.Pr_validatepasword,
+                                validator: l_VmSignUp.Pr_validatepasword,
                                 onChanged: (value) {
                                   l_VmSignUp.Pr_txtpassword_Text = value;
-                                }
-                            );
+                                });
                           })),
                     ),
                   ),
@@ -405,31 +399,29 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                              obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
-                              controller: ConfirmPassswordController,
-                              decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
-                                hintText: 'Confirm Password',
-                                hintStyle: const TextStyle(color: Colors.black38),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: l_VmSignUp.l_autoValidate.value &&
-                                            l_VmSignUp.Pr_validateconfirmpass(ConfirmPassswordController.text) != null
-                                        ? Colors.red
-                                        : Colors.white38,
+                                obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                                controller: ConfirmPassswordController,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.grey[50],
+                                  hintText: 'Confirm Password',
+                                  hintStyle: const TextStyle(color: Colors.black38),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: l_VmSignUp.l_autoValidate.value &&
+                                              l_VmSignUp.Pr_validateconfirmpass(ConfirmPassswordController.text) != null
+                                          ? Colors.red
+                                          : Colors.white38,
+                                    ),
                                   ),
+                                  prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
+                                  suffixIcon: togglepassword(),
                                 ),
-                                prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
-                                suffixIcon: togglepassword(),
-                              ),
-                              validator: l_VmSignUp.Pr_validateconfirmpass,
-
+                                validator: l_VmSignUp.Pr_validateconfirmpass,
                                 onChanged: (value) {
                                   l_VmSignUp.Pr_txtconfirmpassword_Text = value;
-                                }
-                            );
+                                });
                           })),
                     ),
                   ),
@@ -456,7 +448,7 @@ class _VwSignUpState extends State<VwSignUp> {
                               l_VmSignUp.l_PrCitiesList?.clear();
                               // Call a method to fetch the city data
                               if (await l_VmSignUp.Fnc_CitiesListdata()) {
-                               // l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
+                                // l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
                                 //print("selected city is: ${l_VmSignUp.Pr_selectedcity_Text}");
                               }
                               print("selected country: ${l_VmSignUp.Pr_selectedcountry_Text}");
@@ -530,27 +522,26 @@ class _VwSignUpState extends State<VwSignUp> {
                             SizedBox(
                                 width: Pr_width * .590,
                                 child: TextFormField(
-                                  controller: ContactNumberController,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.grey[50],
-                                    hintText: 'Contact Number',
-                                    hintStyle: const TextStyle(color: Colors.black38),
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(
-                                        color: l_VmSignUp.l_autoValidate.value &&
-                                                l_VmSignUp.Pr_validateconcotactnumber(ContactNumberController.text) != null
-                                            ? Colors.red
-                                            : Colors.white38,
+                                    controller: ContactNumberController,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.grey[50],
+                                      hintText: 'Contact Number',
+                                      hintStyle: const TextStyle(color: Colors.black38),
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: l_VmSignUp.l_autoValidate.value &&
+                                                  l_VmSignUp.Pr_validateconcotactnumber(ContactNumberController.text) != null
+                                              ? Colors.red
+                                              : Colors.white38,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  validator: l_VmSignUp.Pr_validateconcotactnumber,
+                                    validator: l_VmSignUp.Pr_validateconcotactnumber,
                                     onChanged: (value) {
                                       l_VmSignUp.Pr_txtcontactnumber_Text = value;
-                                    }
-                                )),
+                                    })),
                           ],
                         ),
                       ],
@@ -600,8 +591,6 @@ class _VwSignUpState extends State<VwSignUp> {
                       ],
                     ),
                   ),
-
-
                 ],
               ),
             ),

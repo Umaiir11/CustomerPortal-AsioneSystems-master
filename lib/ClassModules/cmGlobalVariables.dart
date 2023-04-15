@@ -17,4 +17,7 @@ class cmGlobalVariables {
   static var Pb_SelectedDID;
   static String? Pb_jsonString;
   static String? Pb_Exception;
+  static String? Pb_ImageString;
+  static String? Pb_ImageExt;
+
 }
