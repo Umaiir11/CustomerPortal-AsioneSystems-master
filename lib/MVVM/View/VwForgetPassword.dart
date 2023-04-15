@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:login/MVVM/View/VwLogin.dart';
 import 'package:login/MVVM/ViewModel/VmPassword.dart';
 
@@ -110,7 +111,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
                                     color: l_Vmpassword.Pr_autoValidate.value &&
-                                            l_Vmpassword.Pr_validateEmail(EmailController.text) != null
+                                        l_Vmpassword.Pr_validateEmail(EmailController.text) != null
                                         ? Colors.red
                                         : Colors.white38,
                                   ),
@@ -129,32 +130,111 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                       child: SizedBox(
                           width: 200,
                           height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12), // <-- Radius
+                          child: Obx(() {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                animationDuration: const Duration(seconds: 1),
+                                shape: l_Vmpassword.Pr_isLoading_wid.value
+                                    ? RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                )
+                                    : RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
                                 ),
-                                backgroundColor: Colors.lightBlueAccent),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                //Show a snackbar message asking the user to fill these fields
-                              } else {
-                                l_Vmpassword.Pr_autoValidate.value = true;
-                              }
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  if (await l_Vmpassword.FncForgetPassword() == true) {
+                                    Get.snackbar(
+                                      'Check Gmail',
+                                      '',
+                                      messageText: Text(
+                                        'Email Sent Successfully',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      snackStyle: SnackStyle.FLOATING,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.black87,
+                                      colorText: Colors.white,
+                                      margin: EdgeInsets.all(10),
+                                      borderRadius: 10,
+                                      animationDuration: Duration(milliseconds: 800),
+                                      overlayBlur: 0,
+                                      isDismissible: true,
+                                      mainButton: TextButton(
+                                        onPressed: () {
+                                          // Do something when main button is pressed
+                                        },
+                                        child: Text(
+                                          'OK',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  }
+                                  else {
+                                    Get.snackbar(
+                                      'Error',
+                                      '',
+                                      messageText: Text(
+                                        'Email with this user does not exist!',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      snackStyle: SnackStyle.FLOATING,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                      margin: EdgeInsets.all(10),
+                                      borderRadius: 10,
+                                      animationDuration: Duration(milliseconds: 800),
+                                      overlayBlur: 0,
+                                      isDismissible: true,
+                                      mainButton: TextButton(
+                                        onPressed: () {
+                                          // Do something when main button is pressed
+                                        },
+                                        child: Text(
+                                          'OK',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  l_Vmpassword.Pr_autoValidate.value = true;
+                                }
 
-                              //await l_VmSignUp.Fnc_ValidateLogin();
-                              // Get.to(() => VwCompany());
-                            },
-                            child: Text(
-                              "Send Link",
-                              style: GoogleFonts.ubuntu(
-                                  textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      //fontWeight: FontWeight.w600,
-                                      letterSpacing: .5)),
-                            ),
-                          )),
+                                //await l_VmSignUp.Fnc_ValidateLogin();
+                                // Get.to(() => VwCompany());
+                              },
+                              child:
+                              l_Vmpassword.Pr_isLoading_wid.value
+                                  ? LoadingAnimationWidget.twistingDots(
+                                leftDotColor: const Color(0xFF1A1A3F),
+                                rightDotColor: const Color(0xFFFFFFFF),
+                                size: 40,
+                              )
+                                  : Text(
+                                "Send Link",
+                                style: GoogleFonts.ubuntu(
+                                    textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        //fontWeight: FontWeight.w600,
+                                        letterSpacing: .5)),
+                              ),
+
+
+                            );
+                          })),
                     ),
                   ),
                 ],

@@ -54,4 +54,24 @@ class cmHttpCalls {
     final lResponse = await http.get(lUri, headers: lStringContect);
     return lResponse;
   }
+
+
+  Future<http.Response> Fnc_HttpForgetPassword() async {
+    String? lToken;
+    lToken = cmGlobalVariables.Pb_Token;
+    String baseUrl = 'https://aisonesystems.com';
+    String whereClause = "WHERE EmailID='${cmGlobalVariables.Pb_EmailID}'";
+    String lControllerUrl = '/apiWeb/User/Get';
+
+    String url = baseUrl + lControllerUrl + '?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}' + '&Pr_OrderByClause=';
+
+    Uri lUri = Uri.parse(url);
+    print(lUri);
+    Map<String, String> lStringContect = {
+      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+      HttpHeaders.authorizationHeader: 'Bearer $lToken',
+    };
+    final lResponse = await http.get(lUri, headers: lStringContect);
+    return lResponse;
+  }
 }
