@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-import '../ApiModels/ModCountry.dart';
-import '../ApiModels/ModErrorLog.dart';
+
 import '../ClassModules/cmHttpCalls.dart';
 import 'package:tuple/tuple.dart';
+
+import '../MVVM/Model/ApiModels/ModCountry.dart';
+import '../MVVM/Model/ApiModels/ModErrorLog.dart';
 
 class Sl_CountriesList {
   Future<Tuple2<List<ModCountry>?, ModErrorLog?>> Fnc_CountriesList() async {

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../ApiModels/Demomodel.dart';
-import '../ApiModels/ModCities.dart';
+import '../MVVM/Model/ApiModels/ModCities.dart';
 import '../MVVM/ViewModel/VmSignup.dart';
 
 

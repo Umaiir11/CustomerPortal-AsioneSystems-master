@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/ApiModels/ModCities.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../ApiModels/ModCountry.dart';
 import '../../UserWidgets/UWCitiesDropDown.dart';
 import '../../UserWidgets/UWCountryDropDown.dart';
+import '../Model/ApiModels/ModCities.dart';
+import '../Model/ApiModels/ModCountry.dart';
 import '../ViewModel/VmSignup.dart';
 import 'VwLogin.dart';
 

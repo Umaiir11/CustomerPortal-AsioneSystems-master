@@ -179,15 +179,20 @@ class _VwLoginState extends State<VwLogin> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Forget Password",
-                                style: GoogleFonts.ubuntu(
-                                    textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black26,
-                                        //fontWeight: FontWeight.w600,
-                                        letterSpacing: .5)),
-                              )
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => VwSignUp());
+                                },
+                                child: Text(
+                                  "Forget Password",
+                                  style: GoogleFonts.ubuntu(
+                                      textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black26,
+                                          //fontWeight: FontWeight.w600,
+                                          letterSpacing: .5)),
+                                ),
+                              ),
                             ],
                           ),
                         ],

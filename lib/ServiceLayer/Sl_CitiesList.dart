@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:login/ApiModels/ModCities.dart';
 import 'package:tuple/tuple.dart';
 
-import '../ApiModels/ModErrorLog.dart';
 import '../ClassModules/cmHttpCalls.dart';
+import '../MVVM/Model/ApiModels/ModCities.dart';
+import '../MVVM/Model/ApiModels/ModErrorLog.dart';
 
 class Sl_CitiesList {
   Future<Tuple2<List<ModCities>?, ModErrorLog?>> Fnc_CitiesList() async {

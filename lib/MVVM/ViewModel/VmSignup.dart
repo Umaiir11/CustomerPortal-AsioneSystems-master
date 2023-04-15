@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:login/ApiModels/ModCountry.dart';
-import 'package:login/ApiModels/ModUser.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:login/ServiceLayer/Sl_CountriesList.dart';
 import 'package:login/ServiceLayer/Sl_WebToken.dart';
@@ -13,11 +11,13 @@ import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as path;
 
-import '../../ApiModels/ModCities.dart';
-import '../../ApiModels/ModErrorLog.dart';
 import '../../ClassModules/cmCryptography.dart';
 import '../../ServiceLayer/Sl_CitiesList.dart';
 import '../../ServiceLayer/Sl_UserCreate.dart';
+import '../Model/ApiModels/ModCities.dart';
+import '../Model/ApiModels/ModCountry.dart';
+import '../Model/ApiModels/ModErrorLog.dart';
+import '../Model/ApiModels/ModUser.dart';
 
 class VmSignUp extends GetxController {
   RxBool l_autoValidate = false.obs;
