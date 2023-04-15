@@ -176,7 +176,7 @@ class _VwSignUpState extends State<VwSignUp> {
                         style: GoogleFonts.ubuntu(
                           textStyle: const TextStyle(
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Colors.white,
                             letterSpacing: .5,
                           ),
                         ),

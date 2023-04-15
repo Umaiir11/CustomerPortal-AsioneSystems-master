@@ -212,7 +212,7 @@ class _VwLoginState extends State<VwLogin> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12), // <-- Radius
+                                  borderRadius: BorderRadius.circular(5), // <-- Radius
                                 ),
                                 backgroundColor: Colors.cyan),
                             onPressed: () async {
@@ -230,7 +230,7 @@ class _VwLoginState extends State<VwLogin> {
                               style: GoogleFonts.ubuntu(
                                   textStyle: const TextStyle(
                                       fontSize: 15,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       //fontWeight: FontWeight.w600,
                                       letterSpacing: .5)),
                             ),
