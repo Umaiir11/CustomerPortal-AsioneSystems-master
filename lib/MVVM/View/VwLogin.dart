@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/MVVM/View/VwSignUp.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import '../ViewModel/VmSignup.dart';
+import 'package:login/MVVM/ViewModel/VmLogin.dart';
 
 class VwLogin extends StatefulWidget {
   @override
@@ -13,224 +11,270 @@ class VwLogin extends StatefulWidget {
 
 class _VwLoginState extends State<VwLogin> {
   @override
-  final VmSignUp l_VmSignUp = Get.put(VmSignUp());
-  bool G_isChecked = false;
+  final VmLogin l_VmLogin = Get.put(VmLogin());
 
   void initState() {
     // TODO: implement initState
-    l_VmSignUp.FncWebToken();
+    l_VmLogin.FncWebToken();
     super.initState();
   }
 
-  final TextEditingController usernameController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController EmailController = TextEditingController();
   final TextEditingController passswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    EmailController.text = l_VmLogin.Pr_txtemail_Text;
+    passswordController.text = l_VmLogin.Pr_txtpassword_Text;
     Widget togglepassword() {
-      return IconButton(
-        onPressed: () {
-          setState(() {
-            l_VmSignUp.Pr_boolSecurePassword_wid.value = !l_VmSignUp.Pr_boolSecurePassword_wid.value;
-          });
-        },
-        icon: l_VmSignUp.Pr_boolSecurePassword_wid.value ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
-        color: Colors.grey,
-      );
+      return Obx(() {
+        return IconButton(
+          onPressed: () {
+            l_VmLogin.Pr_boolSecurePassword_wid.value = !l_VmLogin.Pr_boolSecurePassword_wid.value;
+          },
+          icon: l_VmLogin.Pr_boolSecurePassword_wid.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+          color: l_VmLogin.Pr_boolSecurePassword_wid.value
+              ? Colors.indigo
+              : Colors.grey, // set the color based on the toggle state
+        );
+      });
     }
 
     Widget _WidgetportraitMode(double Pr_height, Pr_width) {
       return Scaffold(
-        body: Container(
-          height: Pr_height,
-          width: Pr_width,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-                Color(0xFFFFFFFF),
-              ],
-              stops: [0.1, 0.5, 0.7, 0.9],
+        body: Form(
+          key: _formKey,
+          child: Container(
+            height: Pr_height,
+            width: Pr_width,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                ],
+                stops: [0.1, 0.5, 0.7, 0.9],
+              ),
             ),
-          ),
-          //color: Colors.black,
-          padding: const EdgeInsets.all(16.0),
-          // we use child container property and used most important property column that accepts multiple widgets
+            //color: Colors.black,
+            padding: const EdgeInsets.all(16.0),
+            // we use child container property and used most important property column that accepts multiple widgets
 
-          child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: 500,
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.095),
-                    child: Center(
-                        child: Text(
-                      "Sign In",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    ))),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.160, left: Pr_width * 0.018),
-                    child: Text(
-                      "Email",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(top: Pr_height * 0.190),
-                  child: Center(
-                    child: SizedBox(
-                        width: Pr_width * .890,
-                        child: TextFormField(
-                          controller: passswordController,
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey[50],
-                            hintText: 'Full Name',
-                            hintStyle: const TextStyle(color: Colors.black38),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Colors.white38)),
-                            suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
-                          ),
-                        )),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.270, left: Pr_width * 0.018),
-                    child: Text(
-                      "Password",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(top: Pr_height * 0.300),
-                  child: Center(
-                    child: SizedBox(
-                        width: Pr_width * .890,
-                        child: TextFormField(
-                          obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
-                          controller: passswordController,
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey[50],
-                            hintText: 'Enter Password',
-                            hintStyle: const TextStyle(color: Colors.black38),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Colors.white38)),
-                            prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
-                            suffixIcon: togglepassword(),
-                          ),
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: Pr_height * 0.380, left: Pr_width * .002),
-                  child: Checkbox(
-                      value: G_isChecked,
-                      onChanged: (value) {
-                        G_isChecked = !G_isChecked;
-                        setState(() {});
-                      }),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.398, left: Pr_width * 0.1),
-                    child: Text(
-                      "Remember Me",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    )),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.398, left: Pr_width * 0.6),
-                    child: Text(
-                      "Forget Password",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.black26,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(top: Pr_height * 0.460),
-                  child: Center(
-                    child: SizedBox(
-                        width: 400,
-                        height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12), // <-- Radius
-                              ),
-                              backgroundColor: Colors.lightBlueAccent),
-                          onPressed: () async {
-                            await l_VmSignUp.Fnc_ValidateLogin();
-                            // Get.to(() => VwCompany());
-                          },
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(
+                        top: Pr_height * 0.22,
+                      ),
+                      child: Center(
                           child: Text(
                             "Sign In",
                             style: GoogleFonts.ubuntu(
                                 textStyle: const TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 22,
                                     color: Colors.black,
                                     //fontWeight: FontWeight.w600,
                                     letterSpacing: .5)),
-                          ),
-                        )),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.560, right: Pr_width * 0.1),
+                          ))),
+                  Padding(
+                    padding: EdgeInsets.only(top: Pr_height * 0.090),
                     child: Center(
-                        child: Text(
-                      "Don't have an account?",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                              letterSpacing: .5)),
-                    ))),
-                Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.564, left: Pr_width * 0.5),
-                    child: Center(
-                        child: InkWell(
-                      onTap: () {
-                        Get.to(() => VwSignUp());
-                      },
-                      child: Text(
-                        "Sign up",
-                        style: GoogleFonts.ubuntu(
-                            textStyle: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black26,
-                                //fontWeight: FontWeight.w600,
-                                letterSpacing: .5)),
+                      child: SizedBox(
+                        width: Pr_width * .890,
+                        child: Obx(() {
+                          return TextFormField(
+                              controller: EmailController,
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey[50],
+                                hintText: 'Email',
+                                hintStyle: const TextStyle(color: Colors.black38),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: l_VmLogin.Pr_autoValidate.value &&
+                                        l_VmLogin.Pr_validateEmail(EmailController.text) != null
+                                        ? Colors.red
+                                        : Colors.white38,
+                                  ),
+                                ),
+                              ),
+                              validator: l_VmLogin.Pr_validateEmail,
+                              onChanged: (value) {
+                                l_VmLogin.Pr_txtemail_Text = value;
+                              });
+                        }),
                       ),
-                    ))),
-              ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: Pr_height * 0.03),
+                    child: Center(
+                      child: SizedBox(
+                          width: Pr_width * .890,
+                          child: Obx(() {
+                            return TextFormField(
+                                obscureText: !l_VmLogin.Pr_boolSecurePassword_wid.value,
+                                controller: passswordController,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.grey[50],
+                                  hintText: 'Password',
+                                  hintStyle: const TextStyle(color: Colors.black38),
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: l_VmLogin.Pr_autoValidate.value &&
+                                          l_VmLogin.Pr_validatepasword(passswordController.text) != null
+                                          ? Colors.red
+                                          : Colors.white38,
+                                    ),
+                                  ),
+                                  suffixIcon: togglepassword(),
+                                ),
+                                validator: l_VmLogin.Pr_validatepasword,
+                                onChanged: (value) {
+                                  l_VmLogin.Pr_txtpassword_Text = value;
+                                });
+                          })),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: Pr_height * 0.02,
+                    ),
+                    child: Container(
+                      constraints: BoxConstraints(maxWidth: 600),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Obx(() {
+                                return Checkbox(
+                                    value: l_VmLogin.Pr_CheckBox.value,
+                                    onChanged: (value) {
+                                      l_VmLogin.Pr_CheckBox.value = !l_VmLogin.Pr_CheckBox.value;
+                                    });
+                              }),
+                              Text(
+                                "Remember Me",
+                                style: GoogleFonts.ubuntu(
+                                    textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        //fontWeight: FontWeight.w600,
+                                        letterSpacing: .5)),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Forget Password",
+                                style: GoogleFonts.ubuntu(
+                                    textStyle: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black26,
+                                        //fontWeight: FontWeight.w600,
+                                        letterSpacing: .5)),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    child: Center(
+                      child: SizedBox(
+                          width: 400,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12), // <-- Radius
+                                ),
+                                backgroundColor: Colors.lightBlueAccent),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                // Show a snackbar message asking the user to fill these fields
+                              } else {
+                                l_VmLogin.Pr_autoValidate.value = true;
+                              }
+
+                              //await l_VmSignUp.Fnc_ValidateLogin();
+                              // Get.to(() => VwCompany());
+                            },
+                            child: Text(
+                              "Sign In",
+                              style: GoogleFonts.ubuntu(
+                                  textStyle: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      //fontWeight: FontWeight.w600,
+                                      letterSpacing: .5)),
+                            ),
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: Pr_height * 0.03, right: Pr_width * 0.1),
+                    child: Container(
+                      constraints: BoxConstraints(maxWidth: 600),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Don't have an account?",
+                                style: GoogleFonts.ubuntu(
+                                    textStyle: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        //fontWeight: FontWeight.w600,
+                                        letterSpacing: .5)),
+                              )
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => VwSignUp());
+                                },
+                                child: Text(
+                                  "Sign up",
+                                  style: GoogleFonts.ubuntu(
+                                      textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black26,
+                                          //fontWeight: FontWeight.w600,
+                                          letterSpacing: .5)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -33,8 +33,6 @@ class _VwSignUpState extends State<VwSignUp> {
   @override
   Future<bool> onWillPop() async {
     Get.back();
-    //
-    //
     return true;
   }
 
@@ -367,7 +365,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                                obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                                obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
                                 controller: PassswordController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.grey[50],
@@ -399,7 +397,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                                obscureText: l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                                obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
                                 controller: ConfirmPassswordController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.grey[50],
@@ -415,7 +413,6 @@ class _VwSignUpState extends State<VwSignUp> {
                                           : Colors.white38,
                                     ),
                                   ),
-                                  prefixIcon: const Icon(MdiIcons.fingerprint, size: 20, color: Colors.grey),
                                   suffixIcon: togglepassword(),
                                 ),
                                 validator: l_VmSignUp.Pr_validateconfirmpass,

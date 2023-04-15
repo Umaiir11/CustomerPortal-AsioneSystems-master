@@ -213,10 +213,7 @@ class VmSignUp extends GetxController {
     return false;
   }
 
-  FncWebToken() async {
-    cmGlobalVariables.Pb_Token = await Sl_WebToken().Fnc_WebToken();
-    print(cmGlobalVariables.Pb_Token);
-  }
+
 
   RxList<ModCountry>? l_PrCountriesList = <ModCountry>[].obs;
   ModErrorLog? errorLog;
