@@ -86,7 +86,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                         style: GoogleFonts.ubuntu(
                           textStyle: const TextStyle(
                             fontSize: 15,
-                            color: Colors.black54,
+                            color: Colors.black26,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.5,
                           ),
