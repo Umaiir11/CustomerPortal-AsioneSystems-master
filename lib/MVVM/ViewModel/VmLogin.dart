@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-
+import 'package:tuple/tuple.dart';
 import '../../ClassModules/cmGlobalVariables.dart';
 import '../../ServiceLayer/Sl_WebToken.dart';
 
@@ -57,7 +57,8 @@ class VmLogin extends GetxController{
 
 
   FncWebToken() async {
-    cmGlobalVariables.Pb_Token = await Sl_WebToken().Fnc_WebToken();
+    Tuple2<String?, Map<String, dynamic>?> result = await Sl_WebToken().Fnc_WebToken();
+    cmGlobalVariables.Pb_Token = result.item1;
     print(cmGlobalVariables.Pb_Token);
   }
 

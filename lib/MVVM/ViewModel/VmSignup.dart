@@ -20,6 +20,8 @@ import '../Model/ApiModels/ModErrorLog.dart';
 import '../Model/ApiModels/ModUser.dart';
 
 class VmSignUp extends GetxController {
+  RxBool l_isImageUploaded = false.obs;
+
   RxBool l_autoValidate = false.obs;
 
   RxString l_PrFullName = ''.obs;
@@ -236,9 +238,9 @@ class VmSignUp extends GetxController {
   Future<void> Fnc_CountryListdata() async {
     final Tuple2<List<ModCountry>?, ModErrorLog?> lResponse = await Fnc_CountryList();
     if (lResponse.item1 != null && lResponse.item1!.isNotEmpty) {
-      print("DataLoaded");
+      print("Countries DataLoaded");
     } else {
-      print("NotLoaded");
+      print("Countries NotLoaded");
     }
   }
 
@@ -265,10 +267,10 @@ class VmSignUp extends GetxController {
   Future<bool> Fnc_CitiesListdata() async {
     final Tuple2<List<ModCities>?, ModErrorLog?> lResponse = await Fnc_CitiesList();
     if (lResponse.item1 != null && lResponse.item1!.isNotEmpty) {
-      print("DataLoaded");
+      print("Cities Loaded");
       return true;
     } else {
-      print("NotLoaded");
+      print("Cities NotLoaded");
       return false;
     }
   }
@@ -307,20 +309,25 @@ class VmSignUp extends GetxController {
     lModUser.Pr_MDate = expiredTime;
     lModUser.Pr_DB = "00000000-0000-0000-0000-000000000000";
     lModUser.Pr_DDate = expiredTime;
-    lModUser.Pr_Operation = 0;
+    lModUser.Pr_Operation = 1;
 
     // Add more ModUser models to the list as needed
     lModuserlist.add(lModUser);
   }
 
   Future<bool> Fnc_UserCreate() async {
-    bool result;
-    result = await Sl_UserCreate().Fnc_UserCreate();
-    if (result == true) {
-      print("DataLoaded");
-      return true;
-    } else {
-      print("NotLoaded");
+    try {
+      final tuple = await Sl_UserCreate().Fnc_UserCreate();
+
+      if (tuple.item1 == true) {
+        print("User Created");
+        return true;
+      } else {
+        print("User Not Created: ${tuple.item2?.Pr_ExceptionMessage}");
+        return false;
+      }
+    } catch (e) {
+      print("User Creation Failed: $e");
       return false;
     }
   }

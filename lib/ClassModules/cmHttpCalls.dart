@@ -41,7 +41,7 @@ class cmHttpCalls {
     lToken = cmGlobalVariables.Pb_Token;
     String baseUrl = 'https://aisonesystems.com';
     String whereClause = "Where CountryDID=' ${cmGlobalVariables.Pb_SelectedCity}'";
-    String lControllerUrl = '/apiWeb/NewCityQuery/Get';
+    String lControllerUrl = '/apiWeb/CityQuery/Get';
 
     String url = baseUrl + lControllerUrl + '?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}' + '&Pr_OrderByClause=';
 

@@ -11,7 +11,7 @@ class Sl_CountriesList {
   Future<Tuple2<List<ModCountry>?, ModErrorLog?>> Fnc_CountriesList() async {
 
     try {
-      final lResponse = await cmHttpCalls().Fnc_HttpWebCountries('/apiWeb/NewCountryQuery/Get');
+      final lResponse = await cmHttpCalls().Fnc_HttpWebCountries('/apiWeb/CountryQuery/Get');
       if (lResponse.statusCode == 200) {
         var tuple = Fnc_JsonToTuple(jsonDecode(lResponse.body));
         print("Countries List");
