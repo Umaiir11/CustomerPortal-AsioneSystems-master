@@ -135,73 +135,111 @@ class _VwSignUpState extends State<VwSignUp> {
                             // Fill the model data with the new form data
                             l_VmSignUp.FncFillModelData();
                             if (l_VmSignUp.lModuserlist.isNotEmpty) {
-                             if( await l_VmSignUp.Fnc_UserCreate() == true ){
-                               Get.snackbar(
-                                 'Alert',
-                                 '',
-                                 messageText: Text(
-                                   'User Created',
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                                 snackStyle: SnackStyle.FLOATING,
-                                 snackPosition: SnackPosition.BOTTOM,
-                                 backgroundColor: Colors.black87,
-                                 colorText: Colors.white,
-                                 margin: EdgeInsets.all(10),
-                                 borderRadius: 10,
-                                 animationDuration: Duration(milliseconds: 800),
-                                 overlayBlur: 0,
-                                 isDismissible: true,
-                                 mainButton: TextButton(
-                                   onPressed: () {
-                                     // Do something when main button is pressed
-                                   },
-                                   child: Text(
-                                     'OK',
-                                     style: TextStyle(color: Colors.white),
-                                   ),
-                                 ),
-                                 icon: Icon(
-                                   Icons.info_outline,
-                                   color: Colors.white,
-                                 ),
-                               );
+                              if( await l_VmSignUp.Fnc_CheckDuplicate() == true ){
+                                Get.snackbar(
+                                  'Alert',
+                                  '',
+                                  messageText: Text(
+                                    'This user already exists. Please try again with a different email or log in using your existing account',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  snackStyle: SnackStyle.FLOATING,
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  margin: EdgeInsets.all(10),
+                                  borderRadius: 10,
+                                  animationDuration: Duration(milliseconds: 800),
+                                  overlayBlur: 0,
+                                  isDismissible: true,
+                                  mainButton: TextButton(
+                                    onPressed: () {
+                                      // Do something when main button is pressed
+                                    },
+                                    child: Text(
+                                      'OK',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  icon: Icon(
+                                    Icons.info_outline,
+                                    color: Colors.white,
+                                  ),
+                                );
 
-                             }
-                             else{
-                               Get.snackbar(
-                                 'Alert',
-                                 '',
-                                 messageText: Text(
-                                   'User Not Created',
-                                   style: TextStyle(color: Colors.white),
-                                 ),
-                                 snackStyle: SnackStyle.FLOATING,
-                                 snackPosition: SnackPosition.BOTTOM,
-                                 backgroundColor: Colors.red,
-                                 colorText: Colors.white,
-                                 margin: EdgeInsets.all(10),
-                                 borderRadius: 10,
-                                 animationDuration: Duration(milliseconds: 800),
-                                 overlayBlur: 0,
-                                 isDismissible: true,
-                                 mainButton: TextButton(
-                                   onPressed: () {
-                                     // Do something when main button is pressed
-                                   },
-                                   child: Text(
-                                     'OK',
-                                     style: TextStyle(color: Colors.white),
-                                   ),
-                                 ),
-                                 icon: Icon(
-                                   Icons.info_outline,
-                                   color: Colors.white,
-                                 ),
-                               );
-                             }
+                              }
+                               else{
+                                if( await l_VmSignUp.Fnc_UserCreate() == true ){
+                                  Get.snackbar(
+                                    'Alert',
+                                    '',
+                                    messageText: Text(
+                                      'User Created',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    snackStyle: SnackStyle.FLOATING,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.black87,
+                                    colorText: Colors.white,
+                                    margin: EdgeInsets.all(10),
+                                    borderRadius: 10,
+                                    animationDuration: Duration(milliseconds: 800),
+                                    overlayBlur: 0,
+                                    isDismissible: true,
+                                    mainButton: TextButton(
+                                      onPressed: () {
+                                        // Do something when main button is pressed
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: Colors.white,
+                                    ),
+                                  );
 
-                            } else {
+                                }
+                                else{
+                                  Get.snackbar(
+                                    'Alert',
+                                    '',
+                                    messageText: Text(
+                                      'User Not Created',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    snackStyle: SnackStyle.FLOATING,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                    margin: EdgeInsets.all(10),
+                                    borderRadius: 10,
+                                    animationDuration: Duration(milliseconds: 800),
+                                    overlayBlur: 0,
+                                    isDismissible: true,
+                                    mainButton: TextButton(
+                                      onPressed: () {
+                                        // Do something when main button is pressed
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                }
+                              }
+
+
+
+                            }
+                            else {
                               print('List Empty');
                             }
                           } else {

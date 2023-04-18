@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:login/ServiceLayer/Sl_CountriesList.dart';
+import 'package:login/ServiceLayer/Sl_DuplicateUser.dart';
 import 'package:login/ServiceLayer/Sl_WebToken.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
@@ -49,6 +50,7 @@ class VmSignUp extends GetxController {
 
   set Pr_txtemail_Text(String value) {
     l_PrEmail.value = value;
+
   }
 
   String? Pr_validateEmail(String? value) {
@@ -328,6 +330,23 @@ class VmSignUp extends GetxController {
       }
     } catch (e) {
       print("User Creation Failed: $e");
+      return false;
+    }
+  }
+  Future<bool> Fnc_CheckDuplicate() async {
+      cmGlobalVariables.Pb_EmailID = Pr_txtemail_Text;
+    try {
+      final tuple = await Sl_Duplicate().Fnc_CheckDuplicateUser();
+
+      if (tuple.item1 == true) {
+        print("User found");
+        return true;
+      } else {
+        print("User Not not found");
+        return false;
+      }
+    } catch (e) {
+      print("User not Failed: $e");
       return false;
     }
   }
