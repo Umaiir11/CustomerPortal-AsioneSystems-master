@@ -440,31 +440,44 @@ class _VwSignUpState extends State<VwSignUp> {
                     child: Center(
                       child: SizedBox(
                           width: Pr_width * .890,
-                          child: Obx(() {
+                          child:Obx(() {
                             return TextFormField(
-                                controller: EmailController,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.grey[50],
-                                  labelText: ' Email',
-                                  hintText: 'Enter Email',
-                                  hintStyle: const TextStyle(color: Colors.black38),
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: l_VmSignUp.l_autoValidate.value &&
-                                              l_VmSignUp.Pr_validateEmail(EmailController.text) != null
-                                          ? Colors.red
-                                          : Colors.white38,
-                                    ),
+                              keyboardType: TextInputType.emailAddress,
+                              controller: EmailController,
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey[50],
+                                labelText: 'Email',
+                                hintText: 'Enter Email',
+                                hintStyle: const TextStyle(color: Colors.black38),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide: BorderSide(
+                                    color: l_VmSignUp.l_autoValidate.value &&
+                                        l_VmSignUp.Pr_validateEmail(EmailController.text) != null
+                                        ? Colors.red
+                                        : Colors.white38,
                                   ),
-                                  suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
                                 ),
-                                validator: l_VmSignUp.Pr_validateEmail,
-                                onChanged: (value) {
-                                  l_VmSignUp.Pr_txtemail_Text = value;
-                                });
-                          })),
+                                suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Email is required';
+                                }
+                                l_VmSignUp.Pr_txtemail_Text = value;
+                                bool emailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
+                                if (!emailValid) {
+                                  return 'Invalid email';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                l_VmSignUp.Pr_txtemail_Text = value;
+                              },
+                            );
+                          })
+                      ),
                     ),
                   ),
                   Padding(
@@ -474,30 +487,49 @@ class _VwSignUpState extends State<VwSignUp> {
                           width: Pr_width * .890,
                           child: Obx(() {
                             return TextFormField(
-                                obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
-                                controller: PassswordController,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.grey[50],
-                                  labelText: ' Password',
-                                  hintText: 'Enter Password',
-                                  hintStyle: const TextStyle(color: Colors.black38),
-                                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: l_VmSignUp.l_autoValidate.value &&
-                                              l_VmSignUp.Pr_validatepasword(PassswordController.text) != null
-                                          ? Colors.red
-                                          : Colors.white38,
-                                    ),
+                              obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                              controller: PassswordController,
+                              decoration: InputDecoration(
+                                fillColor: Colors.grey[50],
+                                labelText: 'Password',
+                                hintText: 'Enter Password',
+                                hintStyle: const TextStyle(color: Colors.black38),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide: BorderSide(
+                                    color: l_VmSignUp.l_autoValidate.value &&
+                                        l_VmSignUp.Pr_validatepasword(PassswordController.text) != null
+                                        ? Colors.red
+                                        : Colors.white38,
                                   ),
-                                  suffixIcon: togglepassword(),
                                 ),
-                                validator: l_VmSignUp.Pr_validatepasword,
-                                onChanged: (value) {
-                                  l_VmSignUp.Pr_txtpassword_Text = value;
-                                });
-                          })),
+                                suffixIcon: togglepassword(),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Password is required';
+                                }
+                                if (value.length < 7) {
+                                  return 'Password must be at least 7 characters long';
+                                }
+                                if (!value.contains(RegExp(r'[A-Z]'))) {
+                                  return 'Password must contain at least one uppercase letter';
+                                }
+                                if (!value.contains(RegExp(r'[a-z]'))) {
+                                  return 'Password must contain at least one lowercase letter';
+                                }
+                                if (!value.contains(RegExp(r'[0-9]'))) {
+                                  return 'Password must contain at least one digit';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                l_VmSignUp.Pr_txtpassword_Text = value;
+                              },
+                            );
+                          })
+                      ),
                     ),
                   ),
 
@@ -597,6 +629,7 @@ class _VwSignUpState extends State<VwSignUp> {
                             SizedBox(
                                 width: Pr_width * .590,
                                 child: TextFormField(
+                                  keyboardType: TextInputType.phone,
                                     controller: ContactNumberController,
                                     decoration: InputDecoration(
                                       fillColor: Colors.grey[50],
