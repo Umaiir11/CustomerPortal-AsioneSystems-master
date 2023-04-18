@@ -1,23 +1,36 @@
 import 'dart:convert';
 
+import 'package:tuple/tuple.dart';
+
 import '../ClassModules/cmHttpCalls.dart';
+import '../MVVM/Model/ApiModels/ModErrorLog.dart';
 import '../MVVM/Model/ApiModels/ModForgetPass.dart';
 
 class Sl_ForgetPassword {
-  Future<List<ModForgetPassword>?> Fnc_ForgetPassword() async {
+  Future<Tuple2<List<ModForgetPassword>?,  Map<String, dynamic>?>> Fnc_ForgetPassword() async {
     try {
       final lResponse = await cmHttpCalls().Fnc_HttpForgetPassword();
       if (lResponse.statusCode == 200) {
-        return Fnc_JsonToListOfModel(jsonDecode(lResponse.body));
-        print("Cities List");
+        var tuple = Fnc_JsonToTuple(jsonDecode(lResponse.body));
+        print("Forget Pass");
+        return Tuple2(tuple.item1, tuple.item2);
       } else {
-        return null;
+        return const Tuple2(null, null);
       }
     } catch (e) {
       print(e.toString());
     }
-    return null; // always return Tuple1
+    return const Tuple2(null, null); // always return Tuple1
   }
+
+
+  Tuple2<List<ModForgetPassword>,  Map<String, dynamic>?> Fnc_JsonToTuple(Map<String, dynamic> lJsonObject) {
+    List<dynamic> lJsonList = lJsonObject['Item1'];
+    List<ModForgetPassword> lListAssignedBranches = Fnc_JsonToListOfModel(lJsonList);
+    Map<String, dynamic>? item2 = lJsonObject['Item2']?.isNotEmpty == true ? lJsonObject['Item2'] : null;
+    return Tuple2(lListAssignedBranches, item2);
+  }
+
 
   ModForgetPassword Fnc_JsonToModel(Map<String, dynamic> lJsonObject) {
     ModForgetPassword lModForgetPassword = ModForgetPassword();
