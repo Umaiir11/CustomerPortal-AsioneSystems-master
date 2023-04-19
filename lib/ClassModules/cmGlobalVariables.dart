@@ -20,5 +20,6 @@ class cmGlobalVariables {
   static String? Pb_ImageString;
   static String? Pb_ImageExt;
   static String? Pb_EmailID;
+  static String? Pb_HtmlString;
 
 }

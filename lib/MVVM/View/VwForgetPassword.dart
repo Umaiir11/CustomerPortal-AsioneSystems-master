@@ -101,28 +101,40 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                       child: SizedBox(
                           width: Pr_width * .890,
                           child: TextFormField(
-                              controller: EmailController,
-                              decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
-                                labelText: ' Email',
-                                hintText: 'Enter Your Email',
-                                hintStyle: const TextStyle(color: Colors.black38),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide: BorderSide(
-                                    color: l_Vmpassword.Pr_autoValidate.value &&
-                                        l_Vmpassword.Pr_validateEmail(EmailController.text) != null
-                                        ? Colors.red
-                                        : Colors.white38,
-                                  ),
+                            keyboardType: TextInputType.emailAddress,
+                            controller: EmailController,
+                            decoration: InputDecoration(
+                              fillColor: Colors.grey[50],
+                              labelText: ' Email',
+                              hintText: 'Enter Your Email',
+                              hintStyle: const TextStyle(color: Colors.black38),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(
+                                  color: l_Vmpassword.Pr_autoValidate.value &&
+                                          l_Vmpassword.Pr_validateEmail(EmailController.text) != null
+                                      ? Colors.red
+                                      : Colors.white38,
                                 ),
-                                prefixIcon: const Icon(Icons.email_outlined, size: 20, color: Colors.grey),
                               ),
-                              validator: l_Vmpassword.Pr_validateEmail,
-                              onChanged: (value) {
-                                l_Vmpassword.Pr_txtemail_Text = value;
-                              })),
+                              prefixIcon: const Icon(Icons.email_outlined, size: 20, color: Colors.grey),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Email is required';
+                              }
+                              l_Vmpassword.Pr_txtemail_Text = value;
+                              bool emailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
+                              if (!emailValid) {
+                                return ' Please enter valid email';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              l_Vmpassword.Pr_txtemail_Text = value;
+                            },
+                          )),
                     ),
                   ),
                   Padding(
@@ -137,12 +149,12 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                 animationDuration: const Duration(seconds: 2),
                                 shape: l_Vmpassword.Pr_isLoading_wid.value
                                     ? RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                )
+                                        borderRadius: BorderRadius.circular(50),
+                                      )
                                     : RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                  backgroundColor: Colors.cyan,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                backgroundColor: Colors.cyan,
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
@@ -177,8 +189,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                         color: Colors.white,
                                       ),
                                     );
-                                  }
-                                  else {
+                                  } else {
                                     Get.snackbar(
                                       'Error',
                                       '',
@@ -217,24 +228,21 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                 //await l_VmSignUp.Fnc_ValidateLogin();
                                 // Get.to(() => VwCompany());
                               },
-                              child:
-                              l_Vmpassword.Pr_isLoading_wid.value
+                              child: l_Vmpassword.Pr_isLoading_wid.value
                                   ? LoadingAnimationWidget.twistingDots(
-                                leftDotColor: const Color(0xFF1A1A3F),
-                                rightDotColor: const Color(0xFFFFFFFF),
-                                size: 40,
-                              )
+                                      leftDotColor: const Color(0xFF1A1A3F),
+                                      rightDotColor: const Color(0xFFFFFFFF),
+                                      size: 40,
+                                    )
                                   : Text(
-                                "Send Link",
-                                style: GoogleFonts.ubuntu(
-                                    textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                        //fontWeight: FontWeight.w600,
-                                        letterSpacing: .5)),
-                              ),
-
-
+                                      "Send Link",
+                                      style: GoogleFonts.ubuntu(
+                                          textStyle: const TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white,
+                                              //fontWeight: FontWeight.w600,
+                                              letterSpacing: .5)),
+                                    ),
                             );
                           })),
                     ),

@@ -36,6 +36,13 @@ class Vmpassword extends GetxController {
     return null;
   }
 
+
+
+
+
+
+
+
   Future<bool> FncForgetPassword() async {
     Pr_isLoading_wid.value = true;
     List<ModForgetPassword>? lListForgetPassword = List<ModForgetPassword>.empty(growable: true);
@@ -43,7 +50,7 @@ class Vmpassword extends GetxController {
     print(cmGlobalVariables.Pb_EmailID);
     print(cmGlobalVariables.Pb_EmailID);
     final Tuple2<List<ModForgetPassword>?, Map<String, dynamic>?> forgetPasswordResult =
-        await Sl_ForgetPassword().Fnc_ForgetPassword().timeout(const Duration(seconds: 10));
+        await Sl_ForgetPassword().Fnc_ForgetPassword().timeout(const Duration(seconds: 5));
     Pr_isLoading_wid.value = false;
 
     lListForgetPassword = forgetPasswordResult.item1 ?? [];

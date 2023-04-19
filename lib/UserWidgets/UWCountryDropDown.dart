@@ -21,12 +21,12 @@ class UWCountryDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     InputDecoration l_InputDecoration = InputDecoration(
+      filled: true,
       fillColor: Colors.grey[50],
       hintText: 'Select Your Country',
-      labelText: ' Country',
       hintStyle: const TextStyle(color: Colors.black38),
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: Colors.white38)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide:BorderSide.none,),
       prefixIcon: null,
     );
 

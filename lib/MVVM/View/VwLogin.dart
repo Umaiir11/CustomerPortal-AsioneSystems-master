@@ -36,9 +36,8 @@ class _VwLoginState extends State<VwLogin> {
             l_VmLogin.Pr_boolSecurePassword_wid.value = !l_VmLogin.Pr_boolSecurePassword_wid.value;
           },
           icon: l_VmLogin.Pr_boolSecurePassword_wid.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-          color: l_VmLogin.Pr_boolSecurePassword_wid.value
-              ? Colors.cyan
-              : Colors.grey, // set the color based on the toggle state
+          color:
+              l_VmLogin.Pr_boolSecurePassword_wid.value ? Colors.cyan : Colors.grey, // set the color based on the toggle state
         );
       });
     }
@@ -76,48 +75,38 @@ class _VwLoginState extends State<VwLogin> {
                       ),
                       child: Center(
                           child: Text(
-                            "Sign In",
-                            style: GoogleFonts.ubuntu(
-                                textStyle: const TextStyle(
-                                    fontSize: 22,
-                                    color: Colors.black,
-                                    //fontWeight: FontWeight.w600,
-                                    letterSpacing: .5)),
-                          ))),
+                        "Sign In",
+                        style: GoogleFonts.ubuntu(
+                            textStyle: TextStyle(
+                                fontSize: 22,
+                                color: Get.isDarkMode ? Colors.white : Colors.black,
+                                //fontWeight: FontWeight.w600,
+                                letterSpacing: .5)),
+                      ))),
                   Padding(
                     padding: EdgeInsets.only(top: Pr_height * 0.090),
                     child: Center(
                       child: SizedBox(
                         width: Pr_width * .890,
-                        child: Obx(() {
-                          return TextFormField(
-                              controller: EmailController,
-                              decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
-                                labelText: ' Email',
-                                hintText: 'Email',
-                                hintStyle: const TextStyle(color: Colors.black38),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide: BorderSide(
-                                    color: l_VmLogin.Pr_autoValidate.value &&
-                                        l_VmLogin.Pr_validateEmail(EmailController.text) != null
-                                        ? Colors.red
-                                        : Colors.white38,
-                                  ),
-                                ),
-                              ),
-                              validator: l_VmLogin.Pr_validateEmail,
-                              onChanged: (value) {
-                                l_VmLogin.Pr_txtemail_Text = value;
-                              });
-                        }),
+                        child: TextFormField(
+                            controller: EmailController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.grey[50],
+                              hintText: ' Enter Email',
+                              hintStyle: const TextStyle(color: Colors.black38),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                            ),
+                            validator: l_VmLogin.Pr_validateEmail,
+                            onChanged: (value) {
+                              l_VmLogin.Pr_txtemail_Text = value;
+                            }),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.03),
+                    padding: EdgeInsets.only(top: Pr_height * 0.02),
                     child: Center(
                       child: SizedBox(
                           width: Pr_width * .890,
@@ -126,20 +115,13 @@ class _VwLoginState extends State<VwLogin> {
                                 obscureText: !l_VmLogin.Pr_boolSecurePassword_wid.value,
                                 controller: passswordController,
                                 decoration: InputDecoration(
+                                  filled: true,
                                   fillColor: Colors.grey[50],
-                                  labelText: ' Password',
                                   hintText: 'Enter Password',
                                   hintStyle: const TextStyle(color: Colors.black38),
                                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: l_VmLogin.Pr_autoValidate.value &&
-                                          l_VmLogin.Pr_validatepasword(passswordController.text) != null
-                                          ? Colors.red
-                                          : Colors.white38,
-                                    ),
-                                  ),
+                                  border:
+                                      OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
                                   suffixIcon: togglepassword(),
                                 ),
                                 validator: l_VmLogin.Pr_validatepasword,

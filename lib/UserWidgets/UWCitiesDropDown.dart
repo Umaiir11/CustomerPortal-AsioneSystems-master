@@ -29,13 +29,13 @@ class UWCitiesDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     InputDecoration l_InputDecoration = InputDecoration(
       fillColor: Colors.grey[50],
+      filled: true,
       hintText: 'Select Your City',
-      labelText: ' City',
       hintStyle: const TextStyle(color: Colors.black38),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: Colors.white38)
+          borderSide:  BorderSide.none
       ),
       prefixIcon: null,
     );

@@ -7,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:login/ServiceLayer/Sl_CountriesList.dart';
 import 'package:login/ServiceLayer/Sl_DuplicateUser.dart';
-import 'package:login/ServiceLayer/Sl_WebToken.dart';
+import 'package:login/ServiceLayer/Sl_VerifyEmail.dart';
+import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path/path.dart' as path;
 
 import '../../ClassModules/cmCryptography.dart';
 import '../../ServiceLayer/Sl_CitiesList.dart';
@@ -50,7 +50,6 @@ class VmSignUp extends GetxController {
 
   set Pr_txtemail_Text(String value) {
     l_PrEmail.value = value;
-
   }
 
   String? Pr_validateEmail(String? value) {
@@ -208,7 +207,7 @@ class VmSignUp extends GetxController {
       // Convert compressed image to a base64 string
       List<int> bytes = await compressedImage.readAsBytes();
       String base64Image = base64Encode(bytes);
-     // print('Base64 image: $base64Image');
+      // print('Base64 image: $base64Image');
       cmGlobalVariables.Pb_ImageString = base64Image;
 
       return true;
@@ -216,8 +215,6 @@ class VmSignUp extends GetxController {
 
     return false;
   }
-
-
 
   RxList<ModCountry>? l_PrCountriesList = <ModCountry>[].obs;
   ModErrorLog? errorLog;
@@ -297,7 +294,7 @@ class VmSignUp extends GetxController {
     lModUser.Pr_Token = cmGlobalVariables.Pb_Token!;
     lModUser.Pr_ExpiredTime = expiredTime;
     lModUser.Pr_Image = cmGlobalVariables.Pb_ImageString!;
-    lModUser.Pr_ImageExt = cmGlobalVariables.Pb_ImageExt! ;
+    lModUser.Pr_ImageExt = cmGlobalVariables.Pb_ImageExt!;
     lModUser.Pr_PackageDID = 0;
     lModUser.Pr_NoOfLicences = 0;
     lModUser.Pr_PerLicenceCost = 0.0;
@@ -317,6 +314,111 @@ class VmSignUp extends GetxController {
     lModuserlist.add(lModUser);
   }
 
+  Future<bool> Fnc_SendEmail() async {
+    try {
+      String l_htmlString = "<div style='background-color: #9bd3e9; margin: 0 !important; padding: 0 !important;'>" +
+          "<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
+          "<tr bgcolor = '#9bd3e9'>" +
+          "<td>" +
+          "<div style = 'margin:10px 0px 0px 5px; background-color: #9bd3e9;' >" +
+          "<img src = 'https://i.ibb.co/5hh4wmG/company-logo-96px.png' alt = 'Alternate Text' />" +
+          "</div>" +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "<td bgcolor='#9bd3e9' align='center'>" +
+          "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>" +
+          "<tr> " +
+          "<td align='center' valign='top' style='padding: 40px 20px 10px 10px;'> </td> " +
+          "</tr>" +
+          "</table> " +
+          "</td>" +
+          "</tr>" +
+          "<tr> " +
+          "<td bgcolor='#9bd3e9' align='center' style='padding: 0px 10px 0px 10px;'>" +
+          "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px;'>" +
+          "<tr> " +
+          "<td bgcolor='#ffffff' align='center' valign='top' style='padding: 40px 20px 10px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;'>" +
+          "<h1 style='font-size: 48px; font-weight: 400; margin: 2px;'>Welcome!</h1> <img src='https://cdn.iconscout.com/icon/free/png-256/handshake-10-155089.png' width='125' height='120' style='display: block; border: 0px;' />" +
+          "</td>" +
+          "</tr>" +
+          "</table>" +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "<td bgcolor='#f4f4f4' align='center' style='padding: 0px 50px 0px 50px;cellpadding:20; cellspacing:20; '>" +
+          "<table border='0' cellpadding='20' width='100%' style='max-width: 600px;'>" +
+          "<tr>" +
+          "<td bgcolor='#ffffff' align='left' style='padding: 10px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'> " +
+          "<p style='margin: 0;'>" +
+          "Hi<strong> ${lModuserlist[0].Pr_FullName} </strong> ," +
+          "<br>" +
+          "I’m <strong> Khurram Sultan</strong>, the founder of <strong> Aisone Systems Team </strong>. I personally like to thank you for signing up to our services." +
+          "We established our company in order to provide you the best services at a reliable cost. " +
+          "I would love to hear what you think about our products and suggestions in order to improve your experience." +
+          "<br>" +
+          "Kindly use the following provided credentials to Sign in :" +
+          "<br/><strong>Email :</strong>${lModuserlist[0].Pr_EmailID}" +
+          "<br/>" +
+          "" +
+          "<br>" +
+          "<b> Click here to confirm your account.</b> <br>" +
+          "</p>" +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "<td bgcolor='#ffffff' align='left'>" +
+          "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+          "<tr>" +
+          "<td bgcolor='#ffffff' align='center' style='padding: 2px 30px 30px 30px;'>" +
+          "<table border='0' cellspacing='0' cellpadding='0'>" +
+          "<tr>" +
+          "<td align='center' style='border-radius: 3px;' bgcolor='#43add6'>" +
+          "<a href='https://customerportal.aisonesystems.com/User/Fnc_UserApprovel?l_UserDID=${lModuserlist[0].Pr_PKGUID}'" +
+          " target='_blank' style='font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;'>Confirm Account</a>" +
+          "</td>" +
+          "</tr>" +
+          "</table>" +
+          "</td>" +
+          "</tr>" +
+          "</table>" +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "<td bgcolor='#ffffff' align='left' style='padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>" +
+          "<p style='margin: 0;'>If you have any queries regarding our services, just feel free to contact us. </br>" +
+          " We're always happy to help you out.</p>" +
+          "</td>" +
+          "</tr>" +
+          "<tr>" +
+          "<td bgcolor='#ffffff' align='left' style='padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;'>" +
+          "<p style='margin: 0;'><strong>Regards,<br>Aisone Systems Team.</strong></p>" +
+          "</td>" +
+          "</tr>" +
+          "</table>" +
+          "</td>" +
+          "</tr>" +
+          "</table>" +
+          "</div>";
+
+        cmGlobalVariables.Pb_HtmlString = l_htmlString;
+
+      final tuple = await Sl_VerifyEmail().Fnc_VerifyEmail();
+
+
+      if (tuple.item1 == "ok") {
+        print("Email Send ");
+        return true;
+      } else {
+        print(" Send: ${tuple.item2?.Pr_ExceptionMessage}");
+        return false;
+      }
+    } catch (e) {
+      print("User Email Failed: $e");
+      return false;
+    }
+  }
+
   Future<bool> Fnc_UserCreate() async {
     try {
       final tuple = await Sl_UserCreate().Fnc_UserCreate();
@@ -333,8 +435,9 @@ class VmSignUp extends GetxController {
       return false;
     }
   }
+
   Future<bool> Fnc_CheckDuplicate() async {
-      cmGlobalVariables.Pb_EmailID = Pr_txtemail_Text;
+    cmGlobalVariables.Pb_EmailID = Pr_txtemail_Text;
     try {
       final tuple = await Sl_Duplicate().Fnc_CheckDuplicateUser();
 
