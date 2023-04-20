@@ -6,29 +6,29 @@ import 'package:login/MVVM/View/VwLogin.dart';
 import 'package:login/MVVM/ViewModel/VmPassword.dart';
 import 'package:lottie/lottie.dart';
 
-class VwForgetPasswrod extends StatefulWidget {
-  const VwForgetPasswrod({Key? key}) : super(key: key);
+class VwForgetPass extends StatefulWidget {
+  const VwForgetPass({Key? key}) : super(key: key);
 
   @override
-  State<VwForgetPasswrod> createState() => _VwForgetPasswrodState();
+  State<VwForgetPass> createState() => _VwForgetPassState();
 }
 
-class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
-  @override
+class _VwForgetPassState extends State<VwForgetPass> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Vmpassword l_Vmpassword = Get.put(Vmpassword());
+  final Vmpass l_Vmpass = Get.put(Vmpass());
   final TextEditingController EmailController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
-    EmailController.text = l_Vmpassword.Pr_txtemail_Text;
+    EmailController.text = l_Vmpass.Pr_txtemail_Text;
 
-    Widget _WidgetportraitMode(double Pr_height, Pr_width) {
+    Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Get.to(() => VwLogin());
             },
@@ -37,8 +37,8 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
         body: Form(
           key: _formKey,
           child: Container(
-            height: Pr_height,
-            width: Pr_width,
+            height: PrHeight,
+            width: PrWidth,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -57,19 +57,15 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: Pr_height * 0.05,
+                    height: PrHeight * 0.05,
                   ),
                   SizedBox(
                     width: 220,
                     height: 170,
-                    child: Lottie.asset(
-                      'assets/pass.json',
-                      fit: BoxFit.cover,
-                      repeat: false
-                    ),
+                    child: Lottie.asset('assets/pass.json', fit: BoxFit.cover, repeat: false),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.04),
+                    padding: EdgeInsets.only(top: PrHeight * 0.04),
                     child: Center(
                       child: Text(
                         "Reset Password",
@@ -84,7 +80,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.02),
+                    padding: EdgeInsets.only(top: PrHeight * 0.02),
                     child: Center(
                       child: Text(
                         "Please enter your email to reset your password. We will send you a secure link to reset your password. Please do not share this link with anyone.",
@@ -101,10 +97,10 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.05),
+                    padding: EdgeInsets.only(top: PrHeight * 0.05),
                     child: Center(
                       child: SizedBox(
-                          width: Pr_width * .890,
+                          width: PrWidth * .890,
                           child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: EmailController,
@@ -114,17 +110,14 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                               hintText: 'Enter Your Email',
                               hintStyle: const TextStyle(color: Colors.black38),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide.none
-                              ),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
                               prefixIcon: const Icon(Icons.email_outlined, size: 20, color: Colors.grey),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Email is required';
                               }
-                              l_Vmpassword.Pr_txtemail_Text = value;
+                              l_Vmpass.Pr_txtemail_Text = value;
                               bool emailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
                               if (!emailValid) {
                                 return ' Please enter valid email';
@@ -132,13 +125,13 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                               return null;
                             },
                             onChanged: (value) {
-                              l_Vmpassword.Pr_txtemail_Text = value;
+                              l_Vmpass.Pr_txtemail_Text = value;
                             },
                           )),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.03),
+                    padding: EdgeInsets.only(top: PrHeight * 0.03),
                     child: Center(
                       child: SizedBox(
                           width: 200,
@@ -147,7 +140,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                             return ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 animationDuration: const Duration(seconds: 2),
-                                shape: l_Vmpassword.Pr_isLoading_wid.value
+                                shape: l_Vmpass.Pr_isLoading_wid.value
                                     ? RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(50),
                                       )
@@ -158,11 +151,11 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  if (await l_Vmpassword.FncForgetPassword() == true) {
+                                  if (await l_Vmpass.FncForgetPassword() == true) {
                                     Get.snackbar(
                                       'Check Gmail',
                                       '',
-                                      messageText: Text(
+                                      messageText: const Text(
                                         'Email Sent Successfully',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -170,21 +163,21 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                       snackPosition: SnackPosition.BOTTOM,
                                       backgroundColor: Colors.black87,
                                       colorText: Colors.white,
-                                      margin: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.all(10),
                                       borderRadius: 10,
-                                      animationDuration: Duration(milliseconds: 800),
+                                      animationDuration: const Duration(milliseconds: 800),
                                       overlayBlur: 0,
                                       isDismissible: true,
                                       mainButton: TextButton(
                                         onPressed: () {
                                           // Do something when main button is pressed
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'OK',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.info_outline,
                                         color: Colors.white,
                                       ),
@@ -193,7 +186,7 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                     Get.snackbar(
                                       'Error',
                                       '',
-                                      messageText: Text(
+                                      messageText: const Text(
                                         'Email with this user does not exist!',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -201,34 +194,34 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                                       snackPosition: SnackPosition.BOTTOM,
                                       backgroundColor: Colors.red,
                                       colorText: Colors.white,
-                                      margin: EdgeInsets.all(10),
+                                      margin: const EdgeInsets.all(10),
                                       borderRadius: 10,
-                                      animationDuration: Duration(milliseconds: 800),
+                                      animationDuration: const Duration(milliseconds: 800),
                                       overlayBlur: 0,
                                       isDismissible: true,
                                       mainButton: TextButton(
                                         onPressed: () {
                                           // Do something when main button is pressed
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'OK',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.info_outline,
                                         color: Colors.white,
                                       ),
                                     );
                                   }
                                 } else {
-                                  l_Vmpassword.Pr_autoValidate.value = true;
+                                  l_Vmpass.Pr_autoValidate.value = true;
                                 }
 
                                 //await l_VmSignUp.Fnc_ValidateLogin();
                                 // Get.to(() => VwCompany());
                               },
-                              child: l_Vmpassword.Pr_isLoading_wid.value
+                              child: l_Vmpass.Pr_isLoading_wid.value
                                   ? LoadingAnimationWidget.twistingDots(
                                       leftDotColor: const Color(0xFF1A1A3F),
                                       rightDotColor: const Color(0xFFFFFFFF),

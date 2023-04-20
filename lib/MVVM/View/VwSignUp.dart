@@ -23,12 +23,12 @@ class VwSignUp extends StatefulWidget {
 }
 
 class _VwSignUpState extends State<VwSignUp> {
-  @override
   final VmSignUp l_VmSignUp = Get.put(VmSignUp());
   ModUser l_ModUser = ModUser();
 
   bool G_isChecked = false;
 
+  @override
   void initState() {
     // TODO: implement initState
     l_VmSignUp.Fnc_CountryListdata();
@@ -49,7 +49,6 @@ class _VwSignUpState extends State<VwSignUp> {
   final TextEditingController PassswordController = TextEditingController();
   final TextEditingController ContactNumberController = TextEditingController();
   final TextEditingController EmailController = TextEditingController();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ModCountry? Selectedvalue;
 
@@ -75,11 +74,11 @@ class _VwSignUpState extends State<VwSignUp> {
       });
     }
 
-    Widget _WidgetportraitMode(double Pr_height, Pr_width) {
+    Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         bottomNavigationBar: BottomAppBar(
           elevation: 0, // <-- Set elevation to 0
-          child: Container(
+          child: SizedBox(
             height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +92,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           borderRadius: BorderRadius.circular(5), // <-- Radius
                         ),
                         backgroundColor: Colors.cyan,
-                        minimumSize: Size(double.infinity, 50), // <-- Minimum size
+                        minimumSize: const Size(double.infinity, 50), // <-- Minimum size
                       ),
                       onPressed: () async {
                         // Output: '1e6e505c-6629-4a1a-88ed-0d84c7e246a8'
@@ -105,7 +104,7 @@ class _VwSignUpState extends State<VwSignUp> {
                               Get.snackbar(
                                 'Alert',
                                 '',
-                                messageText: Text(
+                                messageText: const Text(
                                   'Plaese Upload Image',
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -113,21 +112,21 @@ class _VwSignUpState extends State<VwSignUp> {
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: Colors.red,
                                 colorText: Colors.white,
-                                margin: EdgeInsets.all(10),
+                                margin: const EdgeInsets.all(10),
                                 borderRadius: 10,
-                                animationDuration: Duration(milliseconds: 800),
+                                animationDuration: const Duration(milliseconds: 800),
                                 overlayBlur: 0,
                                 isDismissible: true,
                                 mainButton: TextButton(
                                   onPressed: () {
                                     // Do something when main button is pressed
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'OK',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.info_outline,
                                   color: Colors.white,
                                 ),
@@ -146,7 +145,7 @@ class _VwSignUpState extends State<VwSignUp> {
                                 Get.snackbar(
                                   'Alert',
                                   '',
-                                  messageText: Text(
+                                  messageText: const Text(
                                     'This user already exists. Please try again with a different email or log in using your existing account',
                                     style: TextStyle(color: Colors.white),
                                   ),
@@ -154,21 +153,21 @@ class _VwSignUpState extends State<VwSignUp> {
                                   snackPosition: SnackPosition.BOTTOM,
                                   backgroundColor: Colors.red,
                                   colorText: Colors.white,
-                                  margin: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
                                   borderRadius: 10,
-                                  animationDuration: Duration(milliseconds: 800),
+                                  animationDuration: const Duration(milliseconds: 800),
                                   overlayBlur: 0,
                                   isDismissible: true,
                                   mainButton: TextButton(
                                     onPressed: () {
                                       // Do something when main button is pressed
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'OK',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.info_outline,
                                     color: Colors.white,
                                   ),
@@ -178,7 +177,7 @@ class _VwSignUpState extends State<VwSignUp> {
                                   Get.snackbar(
                                     'Alert',
                                     '',
-                                    messageText: Text(
+                                    messageText: const Text(
                                       'User Created',
                                       style: TextStyle(color: Colors.white),
                                     ),
@@ -186,21 +185,21 @@ class _VwSignUpState extends State<VwSignUp> {
                                     snackPosition: SnackPosition.BOTTOM,
                                     backgroundColor: Colors.black87,
                                     colorText: Colors.white,
-                                    margin: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(10),
                                     borderRadius: 10,
-                                    animationDuration: Duration(milliseconds: 800),
+                                    animationDuration: const Duration(milliseconds: 800),
                                     overlayBlur: 0,
                                     isDismissible: true,
                                     mainButton: TextButton(
                                       onPressed: () {
                                         // Do something when main button is pressed
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'OK',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.info_outline,
                                       color: Colors.white,
                                     ),
@@ -209,7 +208,7 @@ class _VwSignUpState extends State<VwSignUp> {
                                   Get.snackbar(
                                     'Alert',
                                     '',
-                                    messageText: Text(
+                                    messageText: const Text(
                                       'User Not Created',
                                       style: TextStyle(color: Colors.white),
                                     ),
@@ -217,21 +216,21 @@ class _VwSignUpState extends State<VwSignUp> {
                                     snackPosition: SnackPosition.BOTTOM,
                                     backgroundColor: Colors.red,
                                     colorText: Colors.white,
-                                    margin: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(10),
                                     borderRadius: 10,
-                                    animationDuration: Duration(milliseconds: 800),
+                                    animationDuration: const Duration(milliseconds: 800),
                                     overlayBlur: 0,
                                     isDismissible: true,
                                     mainButton: TextButton(
                                       onPressed: () {
                                         // Do something when main button is pressed
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'OK',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.info_outline,
                                       color: Colors.white,
                                     ),
@@ -246,7 +245,7 @@ class _VwSignUpState extends State<VwSignUp> {
                             Get.snackbar(
                               'Alert',
                               '',
-                              messageText: Text(
+                              messageText: const Text(
                                 'Please select both a country and a city',
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -254,21 +253,21 @@ class _VwSignUpState extends State<VwSignUp> {
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: Colors.red,
                               colorText: Colors.white,
-                              margin: EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
                               borderRadius: 10,
-                              animationDuration: Duration(milliseconds: 800),
+                              animationDuration: const Duration(milliseconds: 800),
                               overlayBlur: 0,
                               isDismissible: true,
                               mainButton: TextButton(
                                 onPressed: () {
                                   // Do something when main button is pressed
                                 },
-                                child: Text(
+                                child: const Text(
                                   'OK',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.info_outline,
                                 color: Colors.white,
                               ),
@@ -298,8 +297,8 @@ class _VwSignUpState extends State<VwSignUp> {
         body: Form(
           key: _formKey,
           child: Container(
-            height: Pr_height,
-            width: Pr_width,
+            height: PrHeight,
+            width: PrWidth,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -321,7 +320,7 @@ class _VwSignUpState extends State<VwSignUp> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: Pr_height * 0.04,
+                    height: PrHeight * 0.04,
                   ),
                   Center(
                     child: Text(
@@ -335,7 +334,7 @@ class _VwSignUpState extends State<VwSignUp> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01, left: Pr_width * 0.028),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01, left: PrWidth * 0.028),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -349,27 +348,27 @@ class _VwSignUpState extends State<VwSignUp> {
                                   messageText: Text(
                                     'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/
                                         1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   snackStyle: SnackStyle.FLOATING,
                                   snackPosition: SnackPosition.BOTTOM,
                                   backgroundColor: Colors.black87,
                                   colorText: Colors.white,
-                                  margin: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
                                   borderRadius: 10,
-                                  animationDuration: Duration(milliseconds: 800),
+                                  animationDuration: const Duration(milliseconds: 800),
                                   overlayBlur: 0,
                                   isDismissible: true,
                                   mainButton: TextButton(
                                     onPressed: () {
                                       // Do something when main button is pressed
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'OK',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.info_outline,
                                     color: Colors.white,
                                   ),
@@ -410,10 +409,10 @@ class _VwSignUpState extends State<VwSignUp> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.030),
+                    padding: EdgeInsets.only(top: PrHeight * 0.030),
                     child: Center(
                       child: SizedBox(
-                        width: Pr_width * .890,
+                        width: PrWidth * .890,
                         child: TextFormField(
                             controller: FullNameController,
                             decoration: InputDecoration(
@@ -441,10 +440,10 @@ class _VwSignUpState extends State<VwSignUp> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: Center(
                         child: SizedBox(
-                            width: Pr_width * .890,
+                            width: PrWidth * .890,
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
                               controller: EmailController,
@@ -475,10 +474,10 @@ class _VwSignUpState extends State<VwSignUp> {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: Center(
                       child: SizedBox(
-                          width: Pr_width * .890,
+                          width: PrWidth * .890,
                           child: Obx(() {
                             return TextFormField(
                               obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
@@ -512,51 +511,47 @@ class _VwSignUpState extends State<VwSignUp> {
 
                   //DropDowns
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: Center(
                       child: SizedBox(
-                        width: Pr_width * .890,
-                        height: Pr_height * .070,
+                        width: PrWidth * .890,
+                        height: PrHeight * .070,
                         child: UWCountryDropDown(
                           items: l_VmSignUp.l_PrCountriesList,
-                          itemAsString: (l_CountriesList) => '${l_CountriesList.Pr_CountryID}',
-                          onChanged: (ModCountry? l_SelectedCountry) async {
-                            l_VmSignUp.Pr_selectedcountry_Text = l_SelectedCountry!.Pr_CountryID;
-                            l_VmSignUp.Pr_selectedautoid_Text = l_SelectedCountry!.Pr_AutoID;
+                          itemAsString: (lCountriesList) => lCountriesList.Pr_CountryID,
+                          onChanged: (ModCountry? lSelectedCountry) async {
+                            l_VmSignUp.Pr_selectedcountry_Text = lSelectedCountry!.Pr_CountryID;
+                            l_VmSignUp.Pr_selectedautoid_Text = lSelectedCountry.Pr_AutoID;
 
-                            if (l_VmSignUp.Pr_selectedcountry_Text != null) {
-                              cmGlobalVariables.Pb_SelectedCity = l_SelectedCountry!.Pr_AutoID;
-                              l_VmSignUp.Pr_contactcode_Text = l_SelectedCountry!.Pr_CountryCode;
+                            cmGlobalVariables.Pb_SelectedCity = lSelectedCountry.Pr_AutoID;
+                            l_VmSignUp.Pr_contactcode_Text = lSelectedCountry.Pr_CountryCode;
 
-                              // Clear the city list
-                              l_VmSignUp.l_PrCitiesList?.clear();
-                              // Call a method to fetch the city data
-                              if (await l_VmSignUp.Fnc_CitiesListdata()) {
-                                // l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
-                                //print("selected city is: ${l_VmSignUp.Pr_selectedcity_Text}");
-                              }
-                              print("selected country: ${l_VmSignUp.Pr_selectedcountry_Text}");
-                              print("selected country Code: ${l_VmSignUp.Pr_contactcode_Text}");
+                            // Clear the city list
+                            l_VmSignUp.l_PrCitiesList?.clear();
+                            // Call a method to fetch the city data
+                            if (await l_VmSignUp.Fnc_CitiesListdata()) {
+                              // l_VmSignUp.Pr_selectedcity_Text = l_VmSignUp.l_PrCitiesList![0].Pr_CityID;
+                              //print("selected city is: ${l_VmSignUp.Pr_selectedcity_Text}");
                             }
+                            print("selected country: ${l_VmSignUp.Pr_selectedcountry_Text}");
+                            print("selected country Code: ${l_VmSignUp.Pr_contactcode_Text}");
                           },
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: Center(
                       child: SizedBox(
-                        width: Pr_width * .890,
-                        height: Pr_height * .070,
+                        width: PrWidth * .890,
+                        height: PrHeight * .070,
                         child: UWCitiesDropDown(
                           items: l_VmSignUp.l_PrCitiesList,
-                          itemAsString: (l_CitiesList) => '${l_CitiesList.Pr_CityID}',
-                          onChanged: (ModCities? l_SelectedCity) {
-                            l_VmSignUp.Pr_selectedcity_Text = l_SelectedCity!.Pr_CityID;
-                            if (l_VmSignUp.Pr_selectedcity_Text != null) {
-                              print("selected City: ${l_VmSignUp.Pr_selectedcity_Text}");
-                            }
+                          itemAsString: (lCitiesList) => '${lCitiesList.Pr_CityID}',
+                          onChanged: (ModCities? lSelectedCity) {
+                            l_VmSignUp.Pr_selectedcity_Text = lSelectedCity!.Pr_CityID;
+                            print("selected City: ${l_VmSignUp.Pr_selectedcity_Text}");
                           },
                           // set the initial default value here
                         ),
@@ -566,7 +561,7 @@ class _VwSignUpState extends State<VwSignUp> {
 
 //Row
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01, left: Pr_width * 0.02),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01, left: PrWidth * 0.02),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -575,7 +570,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                                width: Pr_width * .290,
+                                width: PrWidth * .290,
                                 child: Obx(() {
                                   return TextFormField(
                                     keyboardType: TextInputType.phone,
@@ -583,7 +578,7 @@ class _VwSignUpState extends State<VwSignUp> {
                                       filled: true,
                                       fillColor: Colors.grey[100],
                                       hintText:
-                                      '${l_VmSignUp.Pr_contactcode_Text.isEmpty ? '+00' : l_VmSignUp.Pr_contactcode_Text}',
+                                      l_VmSignUp.Pr_contactcode_Text.isEmpty ? '+00' : l_VmSignUp.Pr_contactcode_Text,
                                       hintStyle: const TextStyle(color: Colors.black38),
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
                                       border: OutlineInputBorder(
@@ -598,7 +593,7 @@ class _VwSignUpState extends State<VwSignUp> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                                width: Pr_width * .590,
+                                width: PrWidth * .590,
                                 child: TextFormField(
                                     keyboardType: TextInputType.phone,
                                     controller: ContactNumberController,
@@ -633,7 +628,7 @@ class _VwSignUpState extends State<VwSignUp> {
 
                   ///Row
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.02),
+                    padding: EdgeInsets.only(top: PrHeight * 0.02),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,

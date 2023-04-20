@@ -35,12 +35,12 @@ class Sl_VerifyEmail {
   }
 
   Tuple2<String?, ModErrorLog?> Fnc_JsonToTuple(Map<String, dynamic> lJsonObject) {
-    final l_UserCreated = lJsonObject['Item1']?.toString();
+    final lUserCreated = lJsonObject['Item1']?.toString();
     ModErrorLog? lModErrorLog;
     if (lJsonObject['Item2'] != null) {
       lModErrorLog = Fnc_JsonToErrorLogModel(lJsonObject['Item2']);
     }
-    return Tuple2(l_UserCreated, lModErrorLog);
+    return Tuple2(lUserCreated, lModErrorLog);
   }
 
   ModErrorLog Fnc_JsonToErrorLogModel(Map<String, dynamic> lJsonObject) {

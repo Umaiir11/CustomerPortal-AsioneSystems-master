@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:tuple/tuple.dart';
 
 import '../ClassModules/cmHttpCalls.dart';
-import '../MVVM/Model/ApiModels/ModErrorLog.dart';
 import '../MVVM/Model/ApiModels/ModForgetPass.dart';
 
 class Sl_ForgetPassword {

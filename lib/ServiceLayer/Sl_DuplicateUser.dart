@@ -27,6 +27,6 @@ class Sl_Duplicate {
     } catch (e) {
       print('Error: $e');
     }
-    return Tuple2(null, null);
+    return const Tuple2(null, null);
   }
 }

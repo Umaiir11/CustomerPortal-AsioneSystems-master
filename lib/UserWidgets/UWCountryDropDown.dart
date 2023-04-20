@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../MVVM/Model/ApiModels/ModCountry.dart';
 
 class UWCountryDropDown extends StatelessWidget {
-  UWCountryDropDown({
+  const UWCountryDropDown({
     this.items,
     this.itemAsString,
     this.onChanged,
@@ -20,7 +20,7 @@ class UWCountryDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InputDecoration l_InputDecoration = InputDecoration(
+    InputDecoration lInputDecoration = InputDecoration(
       filled: true,
       fillColor: Colors.grey[100],
       hintText: 'Select Your Country',
@@ -32,7 +32,7 @@ class UWCountryDropDown extends StatelessWidget {
 
     return DropdownSearch<ModCountry>(
       dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: l_InputDecoration,
+        dropdownSearchDecoration: lInputDecoration,
       ),
       popupProps: PopupProps.menu(
         itemBuilder: _customPopupItemBuilder,
@@ -63,8 +63,8 @@ class UWCountryDropDown extends StatelessWidget {
                       spacing: 8,
                       children: [
                         Text(
-                          item!.Pr_CountryID,
-                          style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+                          item.Pr_CountryID,
+                          style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -95,7 +95,7 @@ class UWCountryDropDown extends StatelessWidget {
                 children: [
                   Text(
                     item!.Pr_CountryID.toString(),
-                    style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

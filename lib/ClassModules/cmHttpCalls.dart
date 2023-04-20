@@ -43,7 +43,7 @@ class cmHttpCalls {
     String whereClause = "Where CountryDID=' ${cmGlobalVariables.Pb_SelectedCity}'";
     String lControllerUrl = '/apiWeb/CityQuery/Get';
 
-    String url = baseUrl + lControllerUrl + '?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}' + '&Pr_OrderByClause=';
+    String url = '$baseUrl$lControllerUrl?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}&Pr_OrderByClause=';
 
     Uri lUri = Uri.parse(url);
     print(lUri);
@@ -63,7 +63,7 @@ class cmHttpCalls {
     String whereClause = "WHERE EmailID='${cmGlobalVariables.Pb_EmailID}'";
     String lControllerUrl = '/apiWeb/User/Get';
 
-    String url = baseUrl + lControllerUrl + '?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}' + '&Pr_OrderByClause=';
+    String url = '$baseUrl$lControllerUrl?Pr_WhereClause=${Uri.encodeQueryComponent(whereClause)}&Pr_OrderByClause=';
 
     Uri lUri = Uri.parse(url);
     print(lUri);

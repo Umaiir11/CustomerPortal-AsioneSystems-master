@@ -1,8 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../MVVM/Model/ApiModels/ModCities.dart';
 import '../MVVM/ViewModel/VmSignup.dart';
@@ -27,7 +25,7 @@ class UWCitiesDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InputDecoration l_InputDecoration = InputDecoration(
+    InputDecoration lInputDecoration = InputDecoration(
       fillColor: Colors.grey[100],
       filled: true,
       hintText: 'Select Your City',
@@ -43,7 +41,7 @@ class UWCitiesDropDown extends StatelessWidget {
 
     return DropdownSearch<ModCities>(
       dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: l_InputDecoration,
+        dropdownSearchDecoration: lInputDecoration,
       ),
       popupProps: PopupProps.menu(
         itemBuilder: _customPopupItemBuilder,
@@ -74,8 +72,8 @@ class UWCitiesDropDown extends StatelessWidget {
                 spacing: 8,
                 children: [
                   Text(
-                    item!.Pr_CityID,
-                    style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+                    item.Pr_CityID,
+                    style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -106,7 +104,7 @@ class UWCitiesDropDown extends StatelessWidget {
                 children: [
                   Text(
                     item!.Pr_CityID,
-                    style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

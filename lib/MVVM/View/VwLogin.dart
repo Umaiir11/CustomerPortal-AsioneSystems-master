@@ -15,6 +15,7 @@ class _VwLoginState extends State<VwLogin> {
   @override
   final VmLogin l_VmLogin = Get.put(VmLogin());
 
+  @override
   void initState() {
     // TODO: implement initState
     l_VmLogin.FncWebToken();
@@ -42,13 +43,13 @@ class _VwLoginState extends State<VwLogin> {
       });
     }
 
-    Widget _WidgetportraitMode(double Pr_height, Pr_width) {
+    Widget _WidgetportraitMode(double PrHeight, PrWidth) {
       return Scaffold(
         body: Form(
           key: _formKey,
           child: Container(
-            height: Pr_height,
-            width: Pr_width,
+            height: PrHeight,
+            width: PrWidth,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -71,7 +72,7 @@ class _VwLoginState extends State<VwLogin> {
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.only(
-                        top: Pr_height * 0.22,
+                        top: PrHeight * 0.22,
                       ),
                       child: Center(
                           child: Text(
@@ -84,10 +85,10 @@ class _VwLoginState extends State<VwLogin> {
                                 letterSpacing: .5)),
                       ))),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.090),
+                    padding: EdgeInsets.only(top: PrHeight * 0.090),
                     child: Center(
                       child: SizedBox(
-                        width: Pr_width * .890,
+                        width: PrWidth * .890,
                         child: TextFormField(
                             controller: EmailController,
                             decoration: InputDecoration(
@@ -106,10 +107,10 @@ class _VwLoginState extends State<VwLogin> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.02),
+                    padding: EdgeInsets.only(top: PrHeight * 0.02),
                     child: Center(
                       child: SizedBox(
-                          width: Pr_width * .890,
+                          width: PrWidth * .890,
                           child: Obx(() {
                             return TextFormField(
                                 obscureText: !l_VmLogin.Pr_boolSecurePassword_wid.value,
@@ -133,10 +134,10 @@ class _VwLoginState extends State<VwLogin> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      top: Pr_height * 0.02,
+                      top: PrHeight * 0.02,
                     ),
                     child: Container(
-                      constraints: BoxConstraints(maxWidth: 600),
+                      constraints: const BoxConstraints(maxWidth: 600),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,7 +168,7 @@ class _VwLoginState extends State<VwLogin> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => VwForgetPasswrod());
+                                  Get.to(() => const VwForgetPass());
                                 },
                                 child: Text(
                                   "Forget Password",
@@ -186,7 +187,7 @@ class _VwLoginState extends State<VwLogin> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.01),
+                    padding: EdgeInsets.only(top: PrHeight * 0.01),
                     child: Center(
                       child: SizedBox(
                           width: 400,
@@ -220,9 +221,9 @@ class _VwLoginState extends State<VwLogin> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: Pr_height * 0.03, right: Pr_width * 0.1),
+                    padding: EdgeInsets.only(top: PrHeight * 0.03, right: PrWidth * 0.1),
                     child: Container(
-                      constraints: BoxConstraints(maxWidth: 600),
+                      constraints: const BoxConstraints(maxWidth: 600),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,

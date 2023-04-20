@@ -14,21 +14,21 @@ class Sl_CitiesList {
       if (lResponse.statusCode == 200) {
         var tuple = Fnc_JsonToTuple(jsonDecode(lResponse.body));
         print("Cities List");
-        return Tuple2(tuple.item1, tuple.item2 ?? null); // assign null to Tuple2 if it is null
+        return Tuple2(tuple.item1, tuple.item2); // assign null to Tuple2 if it is null
       } else {
-        return Tuple2(null, null);
+        return const Tuple2(null, null);
       }
     } catch (e) {
       print(e.toString());
     }
-    return Tuple2(null, null); // always return Tuple1
+    return const Tuple2(null, null); // always return Tuple1
   }
 
   Tuple2<List<ModCities>, ModErrorLog?> Fnc_JsonToTuple(Map<String, dynamic> lJsonObject) {
     List<dynamic> lJsonList = lJsonObject['Item1'];
     List<ModCities> lListModCitiesList = Fnc_JsonToListOfModel(lJsonList);
 
-    ModErrorLog? lModErrorLog = null;
+    ModErrorLog? lModErrorLog;
     if (lJsonObject.containsKey('Item2') && lJsonObject['Item2'] != null) {
       lModErrorLog = Fnc_JsonToErrorLogModel(lJsonObject['Item2']);
     }

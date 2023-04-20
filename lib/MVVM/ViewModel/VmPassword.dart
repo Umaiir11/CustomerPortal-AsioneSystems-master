@@ -5,7 +5,7 @@ import 'package:tuple/tuple.dart';
 
 import '../../ServiceLayer/Sl_ForgetPassword.dart';
 
-class Vmpassword extends GetxController {
+class Vmpass extends GetxController {
   RxBool Pr_autoValidate = false.obs;
   RxBool Pr_CheckBox = false.obs;
 
@@ -55,7 +55,7 @@ class Vmpassword extends GetxController {
 
     lListForgetPassword = forgetPasswordResult.item1 ?? [];
     Map<String, dynamic>? item2 = forgetPasswordResult.item2;
-    if (lListForgetPassword!.isNotEmpty) {
+    if (lListForgetPassword.isNotEmpty) {
       print("DataLoaded");
       return true;
     } else {

@@ -4,16 +4,15 @@ import 'package:get/get.dart';
 
 import '../ClassModules/cmHttpCalls.dart';
 import '../MVVM/Model/ApiModels/ModErrorLog.dart';
-import '../MVVM/Model/ApiModels/ModErrorLog.dart';
 import '../MVVM/ViewModel/VmSignup.dart';
 import 'package:tuple/tuple.dart';
 
 class Sl_UserCreate {
   Future<Tuple2<bool?, ModErrorLog?>> Fnc_UserCreate() async {
-    final VmSignUp l_VmSignUp = Get.find<VmSignUp>();
+    final VmSignUp lVmSignUp = Get.find<VmSignUp>();
 
     try {
-      String lJsonString = json.encode(l_VmSignUp.lModuserlist.map((e) => e.toJson()).toList());
+      String lJsonString = json.encode(lVmSignUp.lModuserlist.map((e) => e.toJson()).toList());
 
       List<int> lUtfContent = utf8.encode(lJsonString);
 
@@ -33,12 +32,12 @@ class Sl_UserCreate {
   }
 
   Tuple2<bool?, ModErrorLog?> Fnc_JsonToTuple(Map<String, dynamic> lJsonObject) {
-    final bool? l_UserCreated = lJsonObject['Item1'];
+    final bool? lUserCreated = lJsonObject['Item1'];
     ModErrorLog? lModErrorLog;
     if (lJsonObject['Item2'] != null) {
       lModErrorLog = Fnc_JsonToErrorLogModel(lJsonObject['Item2']);
     }
-    return Tuple2(l_UserCreated, lModErrorLog);
+    return Tuple2(lUserCreated, lModErrorLog);
   }
 
   ModErrorLog Fnc_JsonToErrorLogModel(Map<String, dynamic> lJsonObject) {
