@@ -341,13 +341,54 @@ class _VwSignUpState extends State<VwSignUp> {
                         Center(
                           child: InkWell(
                             onTap: () async {
-                              if (await l_VmSignUp.FncUserImage() == true) {
+
+
+                              if ( await l_VmSignUp.FncPermissions() == true )
+
+                                {
+                                  if (await l_VmSignUp.FncUserImage() == true) {
+                                    Get.snackbar(
+                                      'Image Alert',
+                                      '',
+                                      messageText: Text(
+                                        'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/
+                                            1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                      snackStyle: SnackStyle.FLOATING,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.black87,
+                                      colorText: Colors.white,
+                                      margin: const EdgeInsets.all(10),
+                                      borderRadius: 10,
+                                      animationDuration: const Duration(milliseconds: 800),
+                                      overlayBlur: 0,
+                                      isDismissible: true,
+                                      mainButton: TextButton(
+                                        onPressed: () {
+                                          // Do something when main button is pressed
+                                        },
+                                        child: const Text(
+                                          'OK',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      icon: const Icon(
+                                        Icons.info_outline,
+                                        color: Colors.white,
+                                      ),
+                                    );
+                                  } else {
+                                    Get.snackbar("ALert", "Upload image");
+                                  }
+                                }
+                              else{
+
                                 Get.snackbar(
-                                  'Image Alert',
+                                  'Permission Alert',
                                   '',
                                   messageText: Text(
-                                    'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/
-                                        1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
+                                    'Permission denied',
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   snackStyle: SnackStyle.FLOATING,
@@ -373,9 +414,9 @@ class _VwSignUpState extends State<VwSignUp> {
                                     color: Colors.white,
                                   ),
                                 );
-                              } else {
-                                Get.snackbar("ALert", "Upload image");
                               }
+
+
                             },
                             child: Obx(
                                   () =>

@@ -70,7 +70,9 @@ dependencies:
   flutter_native_image: any
   dropdown_search: ^5.0.6
 
-
+  contacts_service: any
+  permission_handler: any
+  flutter_screenutil: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

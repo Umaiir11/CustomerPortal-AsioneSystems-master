@@ -1,8 +1,10 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/MVVM/View/VwSignUp.dart';
 import 'package:login/MVVM/ViewModel/VmLogin.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'VwForgetPassword.dart';
 
@@ -15,12 +17,51 @@ class _VwLoginState extends State<VwLogin> {
   @override
   final VmLogin l_VmLogin = Get.put(VmLogin());
 
+  List<Contact> contacts = [];
   @override
   void initState() {
     // TODO: implement initState
+    FncPermissions();
     l_VmLogin.FncWebToken();
     super.initState();
   }
+
+
+
+
+  Future<void> FncPermissions() async {
+    PermissionStatus l_mediaPermission = await Permission.contacts.request();
+
+    if (l_mediaPermission == PermissionStatus.granted) {
+      fetchContacts();
+    }
+
+    if (l_mediaPermission == PermissionStatus.denied) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("This permission is recommended."),
+        duration: Duration(milliseconds: 900),
+      ));
+    }
+
+    if (l_mediaPermission == PermissionStatus.permanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+
+
+  void fetchContacts() async {
+    contacts = await ContactsService.getContacts();
+    print(contacts[0].displayName);
+    print(contacts[0].androidAccountName);
+    print(contacts[0].phones);
+
+    print(contacts[0].givenName);
+    print(contacts[0].prefix);
+
+  }
+
+
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController EmailController = TextEditingController();

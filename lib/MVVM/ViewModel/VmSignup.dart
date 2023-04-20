@@ -9,6 +9,7 @@ import 'package:login/ServiceLayer/Sl_CountriesList.dart';
 import 'package:login/ServiceLayer/Sl_DuplicateUser.dart';
 import 'package:login/ServiceLayer/Sl_VerifyEmail.dart';
 import 'package:path/path.dart' as path;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
 
@@ -370,4 +371,25 @@ class VmSignUp extends GetxController {
       return false;
     }
   }
+
+
+  Future<bool> FncPermissions() async {
+    PermissionStatus l_mediaPermission = await Permission.photos.request();
+
+    if (l_mediaPermission == PermissionStatus.granted) {
+      return true;
+    }
+
+    if (l_mediaPermission == PermissionStatus.denied || l_mediaPermission == PermissionStatus.restricted) {
+      return false;
+    }
+
+    if (l_mediaPermission == PermissionStatus.permanentlyDenied) {
+      openAppSettings();
+    }
+
+    return false;
+  }
+
+
 }
