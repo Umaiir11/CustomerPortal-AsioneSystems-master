@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:login/MVVM/View/VwLogin.dart';
 import 'package:login/MVVM/ViewModel/VmPassword.dart';
+import 'package:lottie/lottie.dart';
 
 class VwForgetPasswrod extends StatefulWidget {
   const VwForgetPasswrod({Key? key}) : super(key: key);
@@ -58,10 +59,14 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                   SizedBox(
                     height: Pr_height * 0.05,
                   ),
-                  Image.asset(
-                    "assets/pass.png",
-                    width: 170,
-                    fit: BoxFit.cover,
+                  SizedBox(
+                    width: 220,
+                    height: 170,
+                    child: Lottie.asset(
+                      'assets/pass.json',
+                      fit: BoxFit.cover,
+                      repeat: false
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: Pr_height * 0.04),
@@ -104,19 +109,14 @@ class _VwForgetPasswrodState extends State<VwForgetPasswrod> {
                             keyboardType: TextInputType.emailAddress,
                             controller: EmailController,
                             decoration: InputDecoration(
-                              fillColor: Colors.grey[50],
-                              labelText: ' Email',
+                              filled: true,
+                              fillColor: Colors.grey[100],
                               hintText: 'Enter Your Email',
                               hintStyle: const TextStyle(color: Colors.black38),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: l_Vmpassword.Pr_autoValidate.value &&
-                                          l_Vmpassword.Pr_validateEmail(EmailController.text) != null
-                                      ? Colors.red
-                                      : Colors.white38,
-                                ),
+                                borderSide: BorderSide.none
                               ),
                               prefixIcon: const Icon(Icons.email_outlined, size: 20, color: Colors.grey),
                             ),

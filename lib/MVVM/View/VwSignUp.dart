@@ -6,11 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/ClassModules/cmGlobalVariables.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../UserWidgets/UWCitiesDropDown.dart';
 import '../../UserWidgets/UWCountryDropDown.dart';
+import '../../Validation/Validation.dart';
 import '../Model/ApiModels/ModCities.dart';
 import '../Model/ApiModels/ModCountry.dart';
+import '../Model/ApiModels/ModUser.dart';
 import '../ViewModel/VmSignup.dart';
 import 'VwLogin.dart';
 
@@ -22,6 +25,7 @@ class VwSignUp extends StatefulWidget {
 class _VwSignUpState extends State<VwSignUp> {
   @override
   final VmSignUp l_VmSignUp = Get.put(VmSignUp());
+  ModUser l_ModUser = ModUser();
 
   bool G_isChecked = false;
 
@@ -66,7 +70,7 @@ class _VwSignUpState extends State<VwSignUp> {
           },
           icon: l_VmSignUp.Pr_boolSecurePassword_wid.value ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
           color:
-              l_VmSignUp.Pr_boolSecurePassword_wid.value ? Colors.cyan : Colors.grey, // set the color based on the toggle state
+          l_VmSignUp.Pr_boolSecurePassword_wid.value ? Colors.cyan : Colors.grey, // set the color based on the toggle state
         );
       });
     }
@@ -96,7 +100,6 @@ class _VwSignUpState extends State<VwSignUp> {
 
                         if (_formKey.currentState!.validate()) {
                           if (l_VmSignUp.Pr_selectedcountry_Text.isNotEmpty && l_VmSignUp.Pr_selectedcity_Text.isNotEmpty) {
-
                             if (l_VmSignUp.G_compressedImage.value == null) {
                               // If no image has been uploaded, show an error message to the user
                               Get.snackbar(
@@ -344,7 +347,8 @@ class _VwSignUpState extends State<VwSignUp> {
                                   'Image Alert',
                                   '',
                                   messageText: Text(
-                                    'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/ 1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
+                                    'Image compressed to ${l_VmSignUp.G_compressedSize.value ~/
+                                        1024} KB. | Image extension: ${cmGlobalVariables.Pb_ImageExt}',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   snackStyle: SnackStyle.FLOATING,
@@ -375,26 +379,27 @@ class _VwSignUpState extends State<VwSignUp> {
                               }
                             },
                             child: Obx(
-                              () => l_VmSignUp.G_compressedImage.value != null
+                                  () =>
+                              l_VmSignUp.G_compressedImage.value != null
                                   ? Container(
-                                      width: 120,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: FileImage(File(l_VmSignUp.G_compressedImage.value!.path)),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    )
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: FileImage(File(l_VmSignUp.G_compressedImage.value!.path)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
                                   : SizedBox(
-                                      width: 140,
-                                      height: 120,
-                                      child: Lottie.asset(
-                                        'assets/upload.json',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                width: 140,
+                                height: 120,
+                                child: Lottie.asset(
+                                  'assets/upload.json',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -413,13 +418,22 @@ class _VwSignUpState extends State<VwSignUp> {
                             controller: FullNameController,
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: Colors.grey[50],
+                              fillColor: Colors.grey[100],
                               hintText: 'Full Name',
                               hintStyle: const TextStyle(color: Colors.black38),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
                             ),
-                            validator: l_VmSignUp.Pr_validateFullName,
+                            validator: (value) {
+                              l_ModUser.Pr_FullName = value ?? '';
+                              Tuple2<List<String>?, List<String>?> errors = DVMUser.Fnc_Validate(l_ModUser);
+                              if (errors.item2 != null && errors.item2!.contains('Pr_FullName')) {
+                                return errors.item1![errors.item2!.indexOf(
+                                    'Pr_FullName')]; // Return the error message for Pr_FullName
+                              }
+
+                              return null;
+                            },
                             onChanged: (value) {
                               l_VmSignUp.Pr_txtFullname_Text = value;
                             }),
@@ -435,7 +449,7 @@ class _VwSignUpState extends State<VwSignUp> {
                               keyboardType: TextInputType.emailAddress,
                               controller: EmailController,
                               decoration: InputDecoration(
-                                fillColor: Colors.grey[50],
+                                fillColor: Colors.grey[100],
                                 filled: true,
                                 hintText: 'Enter Email',
                                 hintStyle: const TextStyle(color: Colors.black38),
@@ -444,16 +458,16 @@ class _VwSignUpState extends State<VwSignUp> {
                                 suffixIcon: const Icon(MdiIcons.account, size: 20, color: Colors.grey),
                               ),
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Email is required';
+                                l_ModUser.Pr_EmailID = value ?? '';
+                                Tuple2<List<String>?, List<String>?> errors = DVMUser.Fnc_Validate(l_ModUser);
+                                if (errors.item2 != null && errors.item2!.contains('Pr_EmailID')) {
+                                  return errors.item1![errors.item2!.indexOf(
+                                      'Pr_EmailID')]; // Return the error message for Pr_EmailID
                                 }
-                                l_VmSignUp.Pr_txtemail_Text = value;
-                                bool emailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
-                                if (!emailValid) {
-                                  return ' Please enter valid email';
-                                }
+
                                 return null;
                               },
+
                               onChanged: (value) {
                                 l_VmSignUp.Pr_txtemail_Text = value;
                               },
@@ -465,40 +479,34 @@ class _VwSignUpState extends State<VwSignUp> {
                     child: Center(
                       child: SizedBox(
                           width: Pr_width * .890,
-                          child: TextFormField(
-                            obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
-                            controller: PassswordController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[50],
-                              hintText: 'Enter Password',
-                              hintStyle: const TextStyle(color: Colors.black38),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
-                              suffixIcon: togglepassword(),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Password is required';
-                              }
-                              if (value.length < 7) {
-                                return 'Password must be at least 7 characters long';
-                              }
-                              if (!value.contains(RegExp(r'[A-Z]'))) {
-                                return 'Password must contain at least one uppercase letter';
-                              }
-                              if (!value.contains(RegExp(r'[a-z]'))) {
-                                return 'Password must contain at least one lowercase letter';
-                              }
-                              if (!value.contains(RegExp(r'[0-9]'))) {
-                                return 'Password must contain at least one digit';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              l_VmSignUp.Pr_txtpassword_Text = value;
-                            },
-                          )),
+                          child: Obx(() {
+                            return TextFormField(
+                              obscureText: !l_VmSignUp.Pr_boolSecurePassword_wid.value,
+                              controller: PassswordController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.grey[100],
+                                hintText: 'Enter Password',
+                                hintStyle: const TextStyle(color: Colors.black38),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
+                                suffixIcon: togglepassword(),
+                              ),
+                              validator: (value) {
+                                l_ModUser.Pr_Password = value ?? '';
+                                Tuple2<List<String>?, List<String>?> errors = DVMUser.Fnc_Validate(l_ModUser);
+                                if (errors.item2 != null && errors.item2!.contains('Pr_Password')) {
+                                  return errors.item1![errors.item2!.indexOf(
+                                      'Pr_Password')]; // Return the error message for Pr_EmailID
+                                }
+
+                                return null;
+                              },
+                              onChanged: (value) {
+                                l_VmSignUp.Pr_txtpassword_Text = value;
+                              },
+                            );
+                          })),
                     ),
                   ),
 
@@ -573,9 +581,9 @@ class _VwSignUpState extends State<VwSignUp> {
                                     keyboardType: TextInputType.phone,
                                     decoration: InputDecoration(
                                       filled: true,
-                                      fillColor: Colors.grey[50],
+                                      fillColor: Colors.grey[100],
                                       hintText:
-                                          '${l_VmSignUp.Pr_contactcode_Text.isEmpty ? '+00' : l_VmSignUp.Pr_contactcode_Text}',
+                                      '${l_VmSignUp.Pr_contactcode_Text.isEmpty ? '+00' : l_VmSignUp.Pr_contactcode_Text}',
                                       hintStyle: const TextStyle(color: Colors.black38),
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
                                       border: OutlineInputBorder(
@@ -596,14 +604,24 @@ class _VwSignUpState extends State<VwSignUp> {
                                     controller: ContactNumberController,
                                     decoration: InputDecoration(
                                       filled: true,
-                                      fillColor: Colors.grey[50],
+                                      fillColor: Colors.grey[100],
                                       hintText: 'Contact Number',
                                       hintStyle: const TextStyle(color: Colors.black38),
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(5), borderSide: BorderSide.none),
                                     ),
-                                    validator: l_VmSignUp.Pr_validateconcotactnumber,
+                                    validator: (value) {
+                                      l_ModUser.Pr_ContactNo = value ?? '';
+                                      Tuple2<List<String>?, List<String>?> errors = DVMUser.Fnc_Validate(l_ModUser);
+
+                                      if (errors.item2 != null && errors.item2!.contains('Pr_ContactNo')) {
+                                        return errors.item1![
+                                        errors.item2!.indexOf('Pr_ContactNo')]; // Return the error message for Pr_ContactNo
+                                      }
+
+                                      return null;
+                                    },
                                     onChanged: (value) {
                                       l_VmSignUp.Pr_txtcontactnumber_Text = value;
                                     })),

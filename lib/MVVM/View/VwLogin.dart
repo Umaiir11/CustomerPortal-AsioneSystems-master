@@ -92,7 +92,7 @@ class _VwLoginState extends State<VwLogin> {
                             controller: EmailController,
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: Colors.grey[50],
+                              fillColor: Colors.grey[100],
                               hintText: ' Enter Email',
                               hintStyle: const TextStyle(color: Colors.black38),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -116,7 +116,7 @@ class _VwLoginState extends State<VwLogin> {
                                 controller: passswordController,
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.grey[50],
+                                  fillColor: Colors.grey[100],
                                   hintText: 'Enter Password',
                                   hintStyle: const TextStyle(color: Colors.black38),
                                   floatingLabelBehavior: FloatingLabelBehavior.always,

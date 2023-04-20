@@ -28,7 +28,7 @@ class UWCitiesDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     InputDecoration l_InputDecoration = InputDecoration(
-      fillColor: Colors.grey[50],
+      fillColor: Colors.grey[100],
       filled: true,
       hintText: 'Select Your City',
       hintStyle: const TextStyle(color: Colors.black38),

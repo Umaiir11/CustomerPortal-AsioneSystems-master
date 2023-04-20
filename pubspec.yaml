@@ -98,6 +98,7 @@ flutter:
     - assets/google.png
     - assets/image.png
     - assets/pass.png
+    - assets/pass.json
     - assets/upload.json
 
 
