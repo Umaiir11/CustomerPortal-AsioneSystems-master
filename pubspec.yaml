@@ -69,10 +69,12 @@ dependencies:
   path_provider: ^2.0.5
   flutter_native_image: any
   dropdown_search: ^5.0.6
-
+  gsheets: ^0.4.2
   contacts_service: any
   permission_handler: any
   flutter_screenutil: any
+  device_info: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

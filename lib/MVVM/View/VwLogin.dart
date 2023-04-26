@@ -5,7 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/MVVM/View/VwSignUp.dart';
 import 'package:login/MVVM/ViewModel/VmLogin.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:login/MVVM/Model/ApiModels/ModContacts.dart';
 
+
+
+import '../../Gsheet.dart';
 import 'VwForgetPassword.dart';
 
 class VwLogin extends StatefulWidget {
@@ -23,10 +27,27 @@ class _VwLoginState extends State<VwLogin> {
     // TODO: implement initState
     FncPermissions();
     l_VmLogin.FncWebToken();
+    Fncsheetapi();
+
+
+
+
     super.initState();
   }
 
 
+  Fncsheetapi() async {
+    final user = {
+      userfields.id: 1,
+      userfields.name: "Umair",
+      userfields.email: "iam.umairimran@gmail.com",
+      userfields.isbeh: true,
+    };
+
+
+
+    await SheetAPI.insert([user]);
+  }
 
 
   Future<void> FncPermissions() async {
@@ -50,14 +71,13 @@ class _VwLoginState extends State<VwLogin> {
 
 
 
+
   void fetchContacts() async {
     contacts = await ContactsService.getContacts();
     print(contacts[0].displayName);
     print(contacts[0].androidAccountName);
-    print(contacts[0].phones);
-
+    print(contacts[0].phones![0].value);
     print(contacts[0].givenName);
-    print(contacts[0].prefix);
 
   }
 

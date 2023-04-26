@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:login/MVVM/View/VwLogin.dart';
 
-void main() {
+import 'Gsheet.dart';
+
+Future<void> main() async {
+
+  await SheetAPI.init();
   runApp(const MyApp());
 }
 
